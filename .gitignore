@@ -1,0 +1,33 @@
+# Entornos virtuales
+venv/
+.venv/
+env/
+ENV/
+
+# Caché y compilados de Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Prefect local
+.prefect/
+
+# Credenciales y secretos
+.env
+.env.*
+*.pem
+*.key
+secrets.*
+credentials*.json
+
+# Temporales y configuración local
+*.tmp
+*.log
+~$*
+.vscode/
+.idea/
+.claude/
+.DS_Store
+Thumbs.db

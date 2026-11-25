@@ -1,0 +1,37 @@
+$ timeout --preserve-status -s INT 150 python programacion_recurrente.py normal
+Your flow 'pipeline-etl-escenarios' is being served and polling for scheduled runs!
+
+To trigger a run for this flow, use the following command:
+
+        $ prefect deployment run 'pipeline-etl-escenarios/etl-cada-60-segundos'
+
+You can also run your flow via the Prefect UI: http://127.0.0.1:4299/deployments/deployment/b809a3eb-0bb5-4e36-9c75-0097d560e081
+
+16:24:01.565 | INFO    | Flow run 'smiling-jaguar' - Beginning flow run 'smiling-jaguar' for flow 'pipeline-etl-escenarios'
+16:24:01.581 | INFO    | Flow run 'smiling-jaguar' - View at http://127.0.0.1:4299/runs/flow-run/01a214ce-1dc8-7d2a-95e2-9c1c391e51de
+16:24:01.640 | INFO    | Task run 'extraer-07c' - Extraer: intento 1
+16:24:01.641 | INFO    | Task run 'extraer-07c' - Extraer: éxito en el intento 1 -> [10, 20, 30]
+16:24:01.646 | INFO    | Task run 'extraer-07c' - Finished in state Completed()
+16:24:01.654 | INFO    | Task run 'transformar-d5b' - Transformar: [10, 20, 30] -> [20, 40, 60]
+16:24:01.658 | INFO    | Task run 'transformar-d5b' - Finished in state Completed()
+16:24:01.664 | INFO    | Task run 'guardar-fb9' - Guardar: 3 registros guardados (total = 120)
+16:24:01.667 | INFO    | Task run 'guardar-fb9' - Finished in state Completed()
+16:24:01.673 | INFO    | Task run 'exportar_csv-83b' - CSV: prefect_normal_01a214ce-1dc8-7d2a-95e2-9c1c391e51de.csv (total = 120)
+16:24:01.678 | INFO    | Task run 'exportar_csv-83b' - Finished in state Completed()
+16:24:01.895 | INFO    | Flow run 'smiling-jaguar' - Finished in state Completed()
+16:25:01.665 | INFO    | Flow run 'aquamarine-bustard' - Beginning flow run 'aquamarine-bustard' for flow 'pipeline-etl-escenarios'
+16:25:01.682 | INFO    | Flow run 'aquamarine-bustard' - View at http://127.0.0.1:4299/runs/flow-run/01a214ce-1dc8-7c20-8545-dbb7eb612699
+16:25:01.748 | INFO    | Task run 'extraer-a71' - Extraer: intento 1
+16:25:01.751 | INFO    | Task run 'extraer-a71' - Extraer: éxito en el intento 1 -> [10, 20, 30]
+16:25:01.756 | INFO    | Task run 'extraer-a71' - Finished in state Completed()
+16:25:01.764 | INFO    | Task run 'transformar-89f' - Transformar: [10, 20, 30] -> [20, 40, 60]
+16:25:01.770 | INFO    | Task run 'transformar-89f' - Finished in state Completed()
+16:25:01.778 | INFO    | Task run 'guardar-87e' - Guardar: 3 registros guardados (total = 120)
+16:25:01.783 | INFO    | Task run 'guardar-87e' - Finished in state Completed()
+16:25:01.794 | INFO    | Task run 'exportar_csv-6fc' - CSV: prefect_normal_01a214ce-1dc8-7c20-8545-dbb7eb612699.csv (total = 120)
+16:25:01.799 | INFO    | Task run 'exportar_csv-6fc' - Finished in state Completed()
+16:25:02.093 | INFO    | Flow run 'aquamarine-bustard' - Finished in state Completed()
+16:25:19.154 | INFO    | prefect.runner - Pausing all deployments...
+16:25:19.236 | INFO    | prefect.runner - All deployments have been paused!
+16:25:19.242 | INFO    | prefect.flows - Received KeyboardInterrupt, shutting down...
+[código de salida: 0]

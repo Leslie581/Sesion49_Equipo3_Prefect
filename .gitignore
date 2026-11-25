@@ -31,3 +31,11 @@ credentials*.json
 .claude/
 .DS_Store
 Thumbs.db
+
+# Resultados generados en cada ejecución
+resultados/*
+!resultados/.gitkeep
+
+# Reportes con datos personales (solo se versiona la versión sin nombre)
+reporte/Sesion_49_*.pdf
+!reporte/Sesion_49_Apellido_Nombre.pdf

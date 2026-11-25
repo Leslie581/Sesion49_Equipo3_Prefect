@@ -1,0 +1,23 @@
+# Ejemplo: NO se instala automáticamente. Ajustar PROYECTO antes de usarlo.
+# Formato: minuto hora día-del-mes mes día-de-la-semana comando
+# Cada tarea va en UNA línea y los "%" del comando se escapan como "\%".
+SHELL=/bin/bash
+PATH=/usr/bin:/bin
+MAILTO=""
+PROYECTO=/home/usuario/Sesion49_Equipo3_Prefect
+PYTHON_BIN=/usr/bin/python3
+
+# Las opciones son alternativas: descomentar solo una.
+
+# A) Sin reintentos: si la extracción falla, se espera hasta la siguiente medianoche.
+#0 0 * * * /usr/bin/python3 "$PROYECTO/cron_demo/demo_cron.py" etl --escenario normal >> "$PROYECTO/resultados/cron.log" 2>> "$PROYECTO/resultados/cron.error.log"
+
+# B) Con reintentos manuales.
+#0 0 * * * /bin/bash "$PROYECTO/cron_demo/reintentos.sh" normal >> "$PROYECTO/resultados/cron.log" 2>> "$PROYECTO/resultados/cron.error.log"
+
+# C) Con reintentos y sin solapamiento (recomendada). Si otra ejecución sigue
+#    activa, flock sale con código 99 sin iniciar una segunda.
+#0 0 * * * /usr/bin/flock -n -E 99 "$PROYECTO/resultados/etl.lock" /bin/bash "$PROYECTO/cron_demo/reintentos.sh" normal >> "$PROYECTO/resultados/cron.log" 2>> "$PROYECTO/resultados/cron.error.log"
+
+# D) Igual que C, pero todos los días a las 12:00 PM (mediodía). Medianoche = 12:00 AM = 0 0.
+#0 12 * * * /usr/bin/flock -n -E 99 "$PROYECTO/resultados/etl.lock" /bin/bash "$PROYECTO/cron_demo/reintentos.sh" normal >> "$PROYECTO/resultados/cron.log" 2>> "$PROYECTO/resultados/cron.error.log"

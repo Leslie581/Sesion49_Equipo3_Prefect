@@ -1,0 +1,15 @@
+# Línea C de crontab.example (con flock) bajo entorno mínimo; NO se instaló ninguna tarea.
+$ /usr/bin/flock -n -E 99 "$PROYECTO/resultados/etl.lock" /bin/bash "$PROYECTO/cron_demo/reintentos.sh" normal >> "$PROYECTO/resultados/cron.log" 2>> "$PROYECTO/resultados/cron.error.log"
+[código de salida: 0]
+--- cron.log
+2026-11-25 16:20:53 [INFO] Inicio escenario=normal id=20261125_162053_565
+Extraer: intento 1 (pid 574)
+Extraer: éxito en el intento 1 -> [10, 20, 30]
+Transformar: [10, 20, 30] -> [20, 40, 60]
+Guardar: cron_normal_20261125_162053_565.csv (total = 120)
+2026-11-25 16:20:53 [INFO] Completado en 1 intento(s): cron_normal_20261125_162053_565.csv
+--- cron.error.log
+
+# Solapamiento: segunda ejecución mientras la primera sigue activa
+[segunda: código 99]
+[primera: código 0]

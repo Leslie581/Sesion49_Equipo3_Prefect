@@ -1,0 +1,45 @@
+$ bash cron_demo/reintentos.sh normal
+2026-11-25 16:20:41 [INFO] Inicio escenario=normal id=20261125_162041_456
+Extraer: intento 1 (pid 465)
+Extraer: éxito en el intento 1 -> [10, 20, 30]
+Transformar: [10, 20, 30] -> [20, 40, 60]
+Guardar: cron_normal_20261125_162041_456.csv (total = 120)
+2026-11-25 16:20:41 [INFO] Completado en 1 intento(s): cron_normal_20261125_162041_456.csv
+[código de salida: 0]
+
+$ bash cron_demo/reintentos.sh temporal
+2026-11-25 16:20:41 [INFO] Inicio escenario=temporal id=20261125_162041_479
+Extraer: intento 1 (pid 488)
+ERROR ConnectionError: Desconexión simulada (intento 1)
+2026-11-25 16:20:42 [ERROR] Intento 1/4 falló con código 75
+2026-11-25 16:20:42 [INFO] Espera de 2s antes del siguiente intento
+Extraer: intento 2 (pid 497)
+ERROR ConnectionError: Desconexión simulada (intento 2)
+2026-11-25 16:20:44 [ERROR] Intento 2/4 falló con código 75
+2026-11-25 16:20:44 [INFO] Espera de 2s antes del siguiente intento
+Extraer: intento 3 (pid 506)
+Extraer: éxito en el intento 3 -> [10, 20, 30]
+Transformar: [10, 20, 30] -> [20, 40, 60]
+Guardar: cron_temporal_20261125_162041_479.csv (total = 120)
+2026-11-25 16:20:46 [INFO] Completado en 3 intento(s): cron_temporal_20261125_162041_479.csv
+[código de salida: 0]
+
+$ bash cron_demo/reintentos.sh permanente
+2026-11-25 16:20:46 [INFO] Inicio escenario=permanente id=20261125_162046_517
+Extraer: intento 1 (pid 526)
+ERROR ConnectionError: Desconexión simulada (intento 1)
+2026-11-25 16:20:46 [ERROR] Intento 1/4 falló con código 75
+2026-11-25 16:20:46 [INFO] Espera de 2s antes del siguiente intento
+Extraer: intento 2 (pid 535)
+ERROR ConnectionError: Desconexión simulada (intento 2)
+2026-11-25 16:20:48 [ERROR] Intento 2/4 falló con código 75
+2026-11-25 16:20:48 [INFO] Espera de 2s antes del siguiente intento
+Extraer: intento 3 (pid 544)
+ERROR ConnectionError: Desconexión simulada (intento 3)
+2026-11-25 16:20:50 [ERROR] Intento 3/4 falló con código 75
+2026-11-25 16:20:50 [INFO] Espera de 2s antes del siguiente intento
+Extraer: intento 4 (pid 553)
+ERROR ConnectionError: Desconexión simulada (intento 4)
+2026-11-25 16:20:53 [ERROR] Intento 4/4 falló con código 75
+2026-11-25 16:20:53 [ERROR] Reintentos agotados: no se ejecutan transformar ni guardar
+[código de salida: 1]

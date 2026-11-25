@@ -72,7 +72,7 @@ python -m venv .venv
 pip install -U prefect
 python demo_prefect.py
 ```
-- Requiere Python 3.9 o superior. No necesita internet para simular el fallo (solo para instalar Prefect).
+- Requiere Python 3.11 o superior (exigencia de Prefect 3). No necesita internet para simular el fallo (solo para instalar Prefect).
 - Opcional, para ver los estados en la interfaz web: en otra terminal `prefect server start` y abrir `http://127.0.0.1:4200`.
 - **Ensayen la demo antes de exponer** en el equipo que se usará: la primera ejecución de Prefect puede tardar unos segundos extra en iniciar.
 

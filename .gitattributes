@@ -1,0 +1,7 @@
+# Bash y crontab exigen saltos de línea LF, también al clonar en Windows.
+*.sh text eol=lf
+*.example text eol=lf
+# Binarios: sin conversión de saltos de línea
+*.pdf binary
+*.docx binary
+*.pptx binary

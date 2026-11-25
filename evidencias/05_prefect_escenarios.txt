@@ -1,0 +1,385 @@
+$ <venv>/bin/python demo_prefect_escenarios.py normal
+16:21:50.734 | INFO    | prefect - Starting temporary server on http://127.0.0.1:8041
+See https://www.prefect.io/docs/v3/concepts/server#how-to-guides for more information on running a dedicated Prefect server.
+16:22:01.435 | INFO    | Flow run 'uptight-whippet' - Beginning flow run 'uptight-whippet' for flow 'pipeline-etl-escenarios'
+16:22:01.692 | INFO    | Task run 'extraer-a8e' - Extraer: intento 1
+16:22:01.695 | INFO    | Task run 'extraer-a8e' - Extraer: éxito en el intento 1 -> [10, 20, 30]
+16:22:01.699 | INFO    | Task run 'extraer-a8e' - Finished in state Completed()
+16:22:01.705 | INFO    | Task run 'transformar-eee' - Transformar: [10, 20, 30] -> [20, 40, 60]
+16:22:01.710 | INFO    | Task run 'transformar-eee' - Finished in state Completed()
+16:22:01.718 | INFO    | Task run 'guardar-7e1' - Guardar: 3 registros guardados (total = 120)
+16:22:01.722 | INFO    | Task run 'guardar-7e1' - Finished in state Completed()
+16:22:01.730 | INFO    | Task run 'exportar_csv-b66' - CSV: prefect_normal_300ed9e0-df2b-45fa-8e5a-5e54cb15a1e5.csv (total = 120)
+16:22:01.733 | INFO    | Task run 'exportar_csv-b66' - Finished in state Completed()
+16:22:01.780 | INFO    | Flow run 'uptight-whippet' - Finished in state Completed()
+Estado final: COMPLETED
+16:22:01.830 | WARNING | EventsWorker - Still processing items: 13 items remaining...
+16:22:02.001 | INFO    | prefect - Stopping temporary server on http://127.0.0.1:8041
+16:22:02.166 | ERROR   | sqlalchemy.pool.impl.AsyncAdaptedQueuePool - Exception during reset or similar
+Traceback (most recent call last):
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 1051, in _finalize_fairy
+    fairy._reset(
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 1523, in _reset
+    pool._dialect.do_rollback(self)
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_rollback
+    dbapi_connection.rollback()
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py", line 205, in rollback
+    super().rollback()
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/connectors/asyncio.py", line 416, in rollback
+    await_(self._connection.rollback())
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/util/concurrency.py", line 171, in await_
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/util/concurrency.py", line 209, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/aiosqlite/core.py", line 197, in rollback
+    await self._execute(self._conn.rollback)
+  File "<venv>/lib/python3.12/site-packages/aiosqlite/core.py", line 160, in _execute
+    return await future
+           ^^^^^^^^^^^^
+asyncio.exceptions.CancelledError: Cancelled via cancel scope 7182d847d630 by <Task cancelling name='Task-16' coro=<Consumer.run() running at <venv>/lib/python3.12/site-packages/prefect/server/utilities/messaging/memory.py:351> cb=[Task.task_wakeup(), Task.task_wakeup()]>
+16:22:02.187 | ERROR   | prefect.server.services.task_run_recorder - Error flushing 1 events (1 to retry, 0 dropped)
+Traceback (most recent call last):
+  File "<venv>/lib/python3.12/site-packages/prefect/server/database/interface.py", line 168, in session_context
+    yield session
+  File "<venv>/lib/python3.12/site-packages/prefect/server/services/task_run_recorder.py", line 664, in _record_bulk_task_run_events
+    await session.commit()
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/session.py", line 1309, in commit
+    await greenlet_spawn(self.sync_session.commit)
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/util/concurrency.py", line 214, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2177, in commit
+    trans.commit(_to_root=True)
+  File "<sqlalchemy generated _go() wrapper for sqlalchemy.orm.session.SessionTransaction.commit>", line 2, in commit
+    return target(fn, self, _to_root=_to_root)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/orm/state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1427, in commit
+    self.close()
+  File "<sqlalchemy generated _go() wrapper for sqlalchemy.orm.session.SessionTransaction.close>", line 2, in close
+    return target(fn, self, invalidate=invalidate)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/orm/state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1520, in close
+    connection.close()
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1318, in close
+    conn.close()
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 1611, in close
+    self._checkin()
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 1477, in _checkin
+    _finalize_fairy(
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 1088, in _finalize_fairy
+    connection_record._checkin_failed(e)
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 768, in _checkin_failed
+    self.invalidate(e=err)
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 833, in invalidate
+    self.__close(terminate=True)
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 926, in __close
+    self.__pool._close_connection(
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 370, in _close_connection
+    self._dialect.do_terminate(connection)
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py", line 372, in do_terminate
+    dbapi_connection.terminate()
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/connectors/asyncio.py", line 440, in terminate
+    await_(asyncio.shield(self._terminate_graceful_close()))
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/util/concurrency.py", line 171, in await_
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/util/concurrency.py", line 209, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+asyncio.exceptions.CancelledError: Cancelled via cancel scope 7182d847d630 by <Task cancelling name='Task-16' coro=<Consumer.run() running at <venv>/lib/python3.12/site-packages/prefect/server/utilities/messaging/memory.py:351> cb=[Task.task_wakeup(), Task.task_wakeup()]>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<venv>/lib/python3.12/site-packages/prefect/server/services/task_run_recorder.py", line 693, in flush
+    await record_bulk_task_run_events([item.event for item in batch])
+  File "<venv>/lib/python3.12/site-packages/prefect/server/services/task_run_recorder.py", line 402, in record_bulk_task_run_events
+    await _record_bulk_task_run_events(events)
+  File "<venv>/lib/python3.12/site-packages/prefect/server/services/task_run_recorder.py", line 486, in _record_bulk_task_run_events
+    async with db.session_context() as session:
+  File "/usr/lib/python3.12/contextlib.py", line 231, in __aexit__
+    await self.gen.athrow(value)
+  File "<venv>/lib/python3.12/site-packages/prefect/server/database/interface.py", line 161, in session_context
+    async with session:
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/session.py", line 1379, in __aexit__
+    await _run_to_completion(self.close())
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/base.py", line 59, in _run_to_completion
+    result = await asyncio.shield(task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+asyncio.exceptions.CancelledError: Cancelled via cancel scope 7182d847d630 by <Task cancelling name='Task-16' coro=<Consumer.run() running at <venv>/lib/python3.12/site-packages/prefect/server/utilities/messaging/memory.py:351> cb=[Task.task_wakeup(), Task.task_wakeup()]>
+16:22:02.215 | ERROR   | prefect.server.services.task_run_recorder - Error flushing 1 events (1 to retry, 0 dropped)
+Traceback (most recent call last):
+  File "<venv>/lib/python3.12/site-packages/prefect/server/services/task_run_recorder.py", line 693, in flush
+    await record_bulk_task_run_events([item.event for item in batch])
+  File "<venv>/lib/python3.12/site-packages/prefect/server/services/task_run_recorder.py", line 402, in record_bulk_task_run_events
+    await _record_bulk_task_run_events(events)
+  File "<venv>/lib/python3.12/site-packages/prefect/server/services/task_run_recorder.py", line 422, in _record_bulk_task_run_events
+    all_task_runs = await _drop_task_runs_of_missing_flow_runs(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/prefect/server/services/task_run_recorder.py", line 251, in _drop_task_runs_of_missing_flow_runs
+    async with db.session_context() as session:
+  File "/usr/lib/python3.12/contextlib.py", line 217, in __aexit__
+    await anext(self.gen)
+  File "<venv>/lib/python3.12/site-packages/prefect/server/database/interface.py", line 161, in session_context
+    async with session:
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/session.py", line 1379, in __aexit__
+    await _run_to_completion(self.close())
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/base.py", line 59, in _run_to_completion
+    result = await asyncio.shield(task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+asyncio.exceptions.CancelledError: Cancelled via cancel scope 7182d847d630 by <Task cancelling name='Task-16' coro=<Consumer.run() running at <venv>/lib/python3.12/site-packages/prefect/server/utilities/messaging/memory.py:351> cb=[Task.task_wakeup(), Task.task_wakeup()]>
+[código de salida: 0]
+
+$ <venv>/bin/python demo_prefect_escenarios.py temporal
+16:22:09.920 | INFO    | prefect - Starting temporary server on http://127.0.0.1:8092
+See https://www.prefect.io/docs/v3/concepts/server#how-to-guides for more information on running a dedicated Prefect server.
+16:22:20.316 | INFO    | Flow run 'expert-hedgehog' - Beginning flow run 'expert-hedgehog' for flow 'pipeline-etl-escenarios'
+16:22:20.589 | INFO    | Task run 'extraer-1f8' - Extraer: intento 1
+16:22:20.592 | INFO    | Task run 'extraer-1f8' - Task run failed with exception: ConnectionError('Desconexión simulada (intento 1)') - Retry 1/3 will start 2 second(s) from now
+16:22:19.705 | INFO    | Task run 'extraer-1f8' - Extraer: intento 2
+16:22:19.709 | INFO    | Task run 'extraer-1f8' - Task run failed with exception: ConnectionError('Desconexión simulada (intento 2)') - Retry 2/3 will start 2 second(s) from now
+16:22:21.722 | INFO    | Task run 'extraer-1f8' - Extraer: intento 3
+16:22:21.726 | INFO    | Task run 'extraer-1f8' - Extraer: éxito en el intento 3 -> [10, 20, 30]
+16:22:21.734 | INFO    | Task run 'extraer-1f8' - Finished in state Completed()
+16:22:21.747 | INFO    | Task run 'transformar-11a' - Transformar: [10, 20, 30] -> [20, 40, 60]
+16:22:21.757 | INFO    | Task run 'transformar-11a' - Finished in state Completed()
+16:22:21.774 | INFO    | Task run 'guardar-839' - Guardar: 3 registros guardados (total = 120)
+16:22:21.782 | INFO    | Task run 'guardar-839' - Finished in state Completed()
+16:22:21.799 | INFO    | Task run 'exportar_csv-55c' - CSV: prefect_temporal_b6c1253a-b9b8-4558-a76b-80b5aa0e3de1.csv (total = 120)
+16:22:21.804 | INFO    | Task run 'exportar_csv-55c' - Finished in state Completed()
+16:22:21.946 | INFO    | Flow run 'expert-hedgehog' - Finished in state Completed()
+Estado final: COMPLETED
+16:22:22.008 | INFO    | prefect - Stopping temporary server on http://127.0.0.1:8092
+16:22:22.172 | ERROR   | prefect.server.services.task_run_recorder - Error flushing 1 events (1 to retry, 0 dropped)
+Traceback (most recent call last):
+  File "<venv>/lib/python3.12/site-packages/prefect/server/database/interface.py", line 168, in session_context
+    yield session
+  File "<venv>/lib/python3.12/site-packages/prefect/server/services/task_run_recorder.py", line 252, in _drop_task_runs_of_missing_flow_runs
+    result = await session.execute(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/session.py", line 652, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/util/concurrency.py", line 214, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2555, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2445, in _execute_internal
+    compile_state_cls.orm_execute_statement(
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 357, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1494, in execute
+    return meth(
+           ^^^^^
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 534, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1714, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1843, in _execute_context
+    self._handle_dbapi_exception(
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2364, in _handle_dbapi_exception
+    self.invalidate(e)
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 796, in invalidate
+    pool_proxied_connection.invalidate(exception)
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 1566, in invalidate
+    self._connection_record.invalidate(e=e, soft=soft)
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 833, in invalidate
+    self.__close(terminate=True)
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 926, in __close
+    self.__pool._close_connection(
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 370, in _close_connection
+    self._dialect.do_terminate(connection)
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py", line 372, in do_terminate
+    dbapi_connection.terminate()
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/connectors/asyncio.py", line 440, in terminate
+    await_(asyncio.shield(self._terminate_graceful_close()))
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/util/concurrency.py", line 171, in await_
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/util/concurrency.py", line 209, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+asyncio.exceptions.CancelledError: Cancelled via cancel scope 7148b04d6c10 by <Task cancelling name='Task-16' coro=<Consumer.run() running at <venv>/lib/python3.12/site-packages/prefect/server/utilities/messaging/memory.py:351> cb=[Task.task_wakeup(), Task.task_wakeup()]>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<venv>/lib/python3.12/site-packages/prefect/server/services/task_run_recorder.py", line 693, in flush
+    await record_bulk_task_run_events([item.event for item in batch])
+  File "<venv>/lib/python3.12/site-packages/prefect/server/services/task_run_recorder.py", line 402, in record_bulk_task_run_events
+    await _record_bulk_task_run_events(events)
+  File "<venv>/lib/python3.12/site-packages/prefect/server/services/task_run_recorder.py", line 422, in _record_bulk_task_run_events
+    all_task_runs = await _drop_task_runs_of_missing_flow_runs(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/prefect/server/services/task_run_recorder.py", line 251, in _drop_task_runs_of_missing_flow_runs
+    async with db.session_context() as session:
+  File "/usr/lib/python3.12/contextlib.py", line 231, in __aexit__
+    await self.gen.athrow(value)
+  File "<venv>/lib/python3.12/site-packages/prefect/server/database/interface.py", line 161, in session_context
+    async with session:
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/session.py", line 1379, in __aexit__
+    await _run_to_completion(self.close())
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/base.py", line 59, in _run_to_completion
+    result = await asyncio.shield(task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+asyncio.exceptions.CancelledError: Cancelled via cancel scope 7148b04d6c10 by <Task cancelling name='Task-16' coro=<Consumer.run() running at <venv>/lib/python3.12/site-packages/prefect/server/utilities/messaging/memory.py:351> cb=[Task.task_wakeup(), Task.task_wakeup()]>
+16:22:22.217 | ERROR   | prefect.server.services.task_run_recorder - Error flushing 1 events (1 to retry, 0 dropped)
+Traceback (most recent call last):
+  File "<venv>/lib/python3.12/site-packages/prefect/server/database/interface.py", line 168, in session_context
+    yield session
+  File "<venv>/lib/python3.12/site-packages/prefect/server/services/task_run_recorder.py", line 502, in _record_bulk_task_run_events
+    result = await session.execute(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/session.py", line 652, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/util/concurrency.py", line 214, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2555, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2445, in _execute_internal
+    compile_state_cls.orm_execute_statement(
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 357, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1494, in execute
+    return meth(
+           ^^^^^
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 534, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1714, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1843, in _execute_context
+    self._handle_dbapi_exception(
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2364, in _handle_dbapi_exception
+    self.invalidate(e)
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 796, in invalidate
+    pool_proxied_connection.invalidate(exception)
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 1566, in invalidate
+    self._connection_record.invalidate(e=e, soft=soft)
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 833, in invalidate
+    self.__close(terminate=True)
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 926, in __close
+    self.__pool._close_connection(
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 370, in _close_connection
+    self._dialect.do_terminate(connection)
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py", line 372, in do_terminate
+    dbapi_connection.terminate()
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/connectors/asyncio.py", line 440, in terminate
+    await_(asyncio.shield(self._terminate_graceful_close()))
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/util/concurrency.py", line 171, in await_
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/util/concurrency.py", line 209, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+asyncio.exceptions.CancelledError: Cancelled via cancel scope 7148b04d6c10 by <Task cancelling name='Task-16' coro=<Consumer.run() running at <venv>/lib/python3.12/site-packages/prefect/server/utilities/messaging/memory.py:351> cb=[Task.task_wakeup(), Task.task_wakeup()]>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<venv>/lib/python3.12/site-packages/prefect/server/services/task_run_recorder.py", line 693, in flush
+    await record_bulk_task_run_events([item.event for item in batch])
+  File "<venv>/lib/python3.12/site-packages/prefect/server/services/task_run_recorder.py", line 402, in record_bulk_task_run_events
+    await _record_bulk_task_run_events(events)
+  File "<venv>/lib/python3.12/site-packages/prefect/server/services/task_run_recorder.py", line 486, in _record_bulk_task_run_events
+    async with db.session_context() as session:
+  File "/usr/lib/python3.12/contextlib.py", line 231, in __aexit__
+    await self.gen.athrow(value)
+  File "<venv>/lib/python3.12/site-packages/prefect/server/database/interface.py", line 161, in session_context
+    async with session:
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/session.py", line 1379, in __aexit__
+    await _run_to_completion(self.close())
+  File "<venv>/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/base.py", line 59, in _run_to_completion
+    result = await asyncio.shield(task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+asyncio.exceptions.CancelledError: Cancelled via cancel scope 7148b04d6c10 by <Task cancelling name='Task-16' coro=<Consumer.run() running at <venv>/lib/python3.12/site-packages/prefect/server/utilities/messaging/memory.py:351> cb=[Task.task_wakeup(), Task.task_wakeup()]>
+[código de salida: 0]
+
+$ <venv>/bin/python demo_prefect_escenarios.py permanente
+16:22:30.136 | INFO    | prefect - Starting temporary server on http://127.0.0.1:8240
+See https://www.prefect.io/docs/v3/concepts/server#how-to-guides for more information on running a dedicated Prefect server.
+16:22:40.617 | INFO    | Flow run 'worthy-smilodon' - Beginning flow run 'worthy-smilodon' for flow 'pipeline-etl-escenarios'
+16:22:40.872 | INFO    | Task run 'extraer-ccd' - Extraer: intento 1
+16:22:40.874 | INFO    | Task run 'extraer-ccd' - Task run failed with exception: ConnectionError('Desconexión simulada (intento 1)') - Retry 1/3 will start 2 second(s) from now
+16:22:43.030 | INFO    | Task run 'extraer-ccd' - Extraer: intento 2
+16:22:43.033 | INFO    | Task run 'extraer-ccd' - Task run failed with exception: ConnectionError('Desconexión simulada (intento 2)') - Retry 2/3 will start 2 second(s) from now
+16:22:45.204 | INFO    | Task run 'extraer-ccd' - Extraer: intento 3
+16:22:45.211 | INFO    | Task run 'extraer-ccd' - Task run failed with exception: ConnectionError('Desconexión simulada (intento 3)') - Retry 3/3 will start 2 second(s) from now
+16:22:47.382 | INFO    | Task run 'extraer-ccd' - Extraer: intento 4
+16:22:47.386 | ERROR   | Task run 'extraer-ccd' - Task run failed with exception: ConnectionError('Desconexión simulada (intento 4)') - Retries are exhausted
+Traceback (most recent call last):
+  File "<venv>/lib/python3.12/site-packages/prefect/task_engine.py", line 1072, in run_context
+    yield self
+  File "<venv>/lib/python3.12/site-packages/prefect/task_engine.py", line 1777, in run_task_sync
+    engine.call_task_fn(txn)
+  File "<venv>/lib/python3.12/site-packages/prefect/task_engine.py", line 1093, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/prefect/utilities/callables/__init__.py", line 404, in call_with_parameters
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "<proyecto>/demo_prefect_escenarios.py", line 30, in extraer
+    raise ConnectionError(f"Desconexión simulada (intento {n})")
+ConnectionError: Desconexión simulada (intento 4)
+16:22:47.406 | ERROR   | Task run 'extraer-ccd' - Finished in state Failed('Task run encountered an exception ConnectionError: Desconexión simulada (intento 4)')
+16:22:47.413 | ERROR   | Flow run 'worthy-smilodon' - Encountered exception during execution: ConnectionError('Desconexión simulada (intento 4)')
+Traceback (most recent call last):
+  File "<venv>/lib/python3.12/site-packages/prefect/flow_engine.py", line 1449, in run_context
+    yield self
+  File "<venv>/lib/python3.12/site-packages/prefect/flow_engine.py", line 2337, in run_flow_sync
+    engine.call_flow_fn()
+  File "<venv>/lib/python3.12/site-packages/prefect/flow_engine.py", line 1471, in call_flow_fn
+    result = call_with_parameters(self.flow.fn, self.parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/prefect/utilities/callables/__init__.py", line 404, in call_with_parameters
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "<proyecto>/demo_prefect_escenarios.py", line 53, in pipeline
+    limpios = transformar(extraer(escenario))
+                          ^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/prefect/tasks.py", line 1240, in __call__
+    return run_task(
+           ^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/prefect/task_engine.py", line 2046, in run_task
+    return run_task_sync(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/prefect/task_engine.py", line 1780, in run_task_sync
+    return engine.state if return_type == "state" else engine.result()
+                                                       ^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/prefect/task_engine.py", line 636, in result
+    raise self._raised
+  File "<venv>/lib/python3.12/site-packages/prefect/task_engine.py", line 1072, in run_context
+    yield self
+  File "<venv>/lib/python3.12/site-packages/prefect/task_engine.py", line 1777, in run_task_sync
+    engine.call_task_fn(txn)
+  File "<venv>/lib/python3.12/site-packages/prefect/task_engine.py", line 1093, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/prefect/utilities/callables/__init__.py", line 404, in call_with_parameters
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "<proyecto>/demo_prefect_escenarios.py", line 30, in extraer
+    raise ConnectionError(f"Desconexión simulada (intento {n})")
+ConnectionError: Desconexión simulada (intento 4)
+16:22:47.545 | INFO    | Flow run 'worthy-smilodon' - Finished in state Failed('Flow run encountered an exception: ConnectionError: Desconexión simulada (intento 4)')
+Estado final: FAILED
+16:22:47.586 | INFO    | prefect - Stopping temporary server on http://127.0.0.1:8240
+[código de salida: 1]

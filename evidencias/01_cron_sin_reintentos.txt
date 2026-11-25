@@ -1,0 +1,16 @@
+$ /usr/bin/python3 cron_demo/demo_cron.py etl --escenario normal
+Extraer: intento 1 (pid 453)
+Extraer: éxito en el intento 1 -> [10, 20, 30]
+Transformar: [10, 20, 30] -> [20, 40, 60]
+Guardar: cron_normal_20261125_162041_453.csv (total = 120)
+[código de salida: 0]
+
+$ /usr/bin/python3 cron_demo/demo_cron.py etl --escenario temporal
+Extraer: intento 1 (pid 454)
+ERROR ConnectionError: Desconexión simulada (intento 1)
+[código de salida: 75]
+
+$ /usr/bin/python3 cron_demo/demo_cron.py etl --escenario permanente
+Extraer: intento 1 (pid 455)
+ERROR ConnectionError: Desconexión simulada (intento 1)
+[código de salida: 75]

@@ -1,0 +1,43 @@
+# CSV generados por las ejecuciones anteriores (permanente no debe aparecer)
+--- resultados/cron_normal_20261125_162041_453.csv
+concepto,valor
+registro_1,20
+registro_2,40
+registro_3,60
+total,120
+--- resultados/cron_normal_20261125_162041_456.csv
+concepto,valor
+registro_1,20
+registro_2,40
+registro_3,60
+total,120
+--- resultados/cron_normal_20261125_162053_565.csv
+concepto,valor
+registro_1,20
+registro_2,40
+registro_3,60
+total,120
+--- resultados/cron_temporal_20261125_162041_479.csv
+concepto,valor
+registro_1,20
+registro_2,40
+registro_3,60
+total,120
+--- resultados/cron_temporal_20261125_162053_589.csv
+concepto,valor
+registro_1,20
+registro_2,40
+registro_3,60
+total,120
+--- resultados/prefect_normal_300ed9e0-df2b-45fa-8e5a-5e54cb15a1e5.csv
+concepto,valor
+registro_1,20
+registro_2,40
+registro_3,60
+total,120
+--- resultados/prefect_temporal_b6c1253a-b9b8-4558-a76b-80b5aa0e3de1.csv
+concepto,valor
+registro_1,20
+registro_2,40
+registro_3,60
+total,120

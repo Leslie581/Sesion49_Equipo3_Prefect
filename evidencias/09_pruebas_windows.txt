@@ -1,0 +1,243 @@
+Windows 11, Python 3.12.10, Prefect 3.9.5. Las pruebas de Bash se omiten aquí; se ejecutan en 08_pruebas_linux.txt
+$ python -W ignore -m unittest discover -s tests -v
+test_flock_impide_solapamiento (test_cron.ConReintentos.test_flock_impide_solapamiento) ... skipped 'requiere Bash en Linux o WSL'
+test_independencia_y_archivos_previos (test_cron.ConReintentos.test_independencia_y_archivos_previos) ... skipped 'requiere Bash en Linux o WSL'
+test_limpia_al_recibir_sigterm (test_cron.ConReintentos.test_limpia_al_recibir_sigterm) ... skipped 'requiere Bash en Linux o WSL'
+test_normal (test_cron.ConReintentos.test_normal) ... skipped 'requiere Bash en Linux o WSL'
+test_permanente (test_cron.ConReintentos.test_permanente) ... skipped 'requiere Bash en Linux o WSL'
+test_temporal (test_cron.ConReintentos.test_temporal) ... skipped 'requiere Bash en Linux o WSL'
+test_uso_incorrecto (test_cron.ConReintentos.test_uso_incorrecto) ... skipped 'requiere Bash en Linux o WSL'
+test_escenario_invalido (test_cron.SinReintentos.test_escenario_invalido) ... ok
+test_normal (test_cron.SinReintentos.test_normal) ... ok
+test_un_fallo_no_se_reintenta (test_cron.SinReintentos.test_un_fallo_no_se_reintenta) ... ok
+16:27:43.047 | INFO    | prefect - Starting temporary server on http://127.0.0.1:57312
+See https://www.prefect.io/docs/v3/concepts/server#how-to-guides for more information on running a dedicated Prefect server.
+test_demo_original_sigue_funcionando (test_prefect.Prefect.test_demo_original_sigue_funcionando) ... 16:28:17.287 | INFO    | Flow run 'enchanted-mosquito' - Beginning flow run 'enchanted-mosquito' for flow 'pipeline-etl'
+16:28:17.292 | INFO    | Flow run 'enchanted-mosquito' - View at http://127.0.0.1:57312/runs/flow-run/9e5d5a35-56fa-45d0-a9ba-9a21fb79afa4
+16:28:17.993 | INFO    | Task run 'extraer-543' - Extraer: intento 1
+16:28:17.994 | INFO    | Task run 'extraer-543' - Task run failed with exception: ConnectionError('Desconexión temporal simulada (intento 1)') - Retry 1/3 will start 2 second(s) from now
+16:28:20.003 | INFO    | Task run 'extraer-543' - Extraer: intento 2
+16:28:20.006 | INFO    | Task run 'extraer-543' - Task run failed with exception: ConnectionError('Desconexión temporal simulada (intento 2)') - Retry 2/3 will start 2 second(s) from now
+16:28:22.013 | INFO    | Task run 'extraer-543' - Extraer: intento 3
+16:28:22.016 | INFO    | Task run 'extraer-543' - Extraer: conexión recuperada en el intento 3 -> [10, 20, 30]
+16:28:22.025 | INFO    | Task run 'extraer-543' - Finished in state Completed()
+16:28:22.040 | INFO    | Task run 'transformar-720' - Transformar: [10, 20, 30] -> [20, 40, 60]
+16:28:22.051 | INFO    | Task run 'transformar-720' - Finished in state Completed()
+16:28:22.065 | INFO    | Task run 'guardar-64b' - Guardar: 3 registros guardados (total = 120)
+16:28:22.075 | INFO    | Task run 'guardar-64b' - Finished in state Completed()
+16:28:22.077 | INFO    | Flow run 'enchanted-mosquito' - Resultado final: [20, 40, 60] | total = 120
+16:28:22.258 | INFO    | Flow run 'enchanted-mosquito' - Finished in state Completed()
+ok
+test_independencia_y_archivos_previos (test_prefect.Prefect.test_independencia_y_archivos_previos) ... 16:28:23.030 | INFO    | Flow run 'dashing-bobcat' - Beginning flow run 'dashing-bobcat' for flow 'pipeline-etl-escenarios'
+16:28:23.031 | INFO    | Flow run 'dashing-bobcat' - View at http://127.0.0.1:57312/runs/flow-run/bdaa7b9a-bfd9-45d3-a89a-8d03ab60a14a
+16:28:23.040 | INFO    | Task run 'extraer-24c' - Extraer: intento 1
+16:28:23.042 | INFO    | Task run 'extraer-24c' - Task run failed with exception: ConnectionError('Desconexión simulada (intento 1)') - Retry 1/3 will start 2 second(s) from now
+16:28:25.051 | INFO    | Task run 'extraer-24c' - Extraer: intento 2
+16:28:25.052 | INFO    | Task run 'extraer-24c' - Task run failed with exception: ConnectionError('Desconexión simulada (intento 2)') - Retry 2/3 will start 2 second(s) from now
+16:28:27.060 | INFO    | Task run 'extraer-24c' - Extraer: intento 3
+16:28:27.063 | INFO    | Task run 'extraer-24c' - Extraer: éxito en el intento 3 -> [10, 20, 30]
+16:28:27.071 | INFO    | Task run 'extraer-24c' - Finished in state Completed()
+16:28:27.086 | INFO    | Task run 'transformar-fb1' - Transformar: [10, 20, 30] -> [20, 40, 60]
+16:28:27.096 | INFO    | Task run 'transformar-fb1' - Finished in state Completed()
+16:28:27.109 | INFO    | Task run 'guardar-dad' - Guardar: 3 registros guardados (total = 120)
+16:28:27.117 | INFO    | Task run 'guardar-dad' - Finished in state Completed()
+16:28:27.134 | INFO    | Task run 'exportar_csv-006' - CSV: prefect_temporal_bdaa7b9a-bfd9-45d3-a89a-8d03ab60a14a.csv (total = 120)
+16:28:27.143 | INFO    | Task run 'exportar_csv-006' - Finished in state Completed()
+16:28:27.593 | INFO    | Flow run 'dashing-bobcat' - Finished in state Completed()
+16:28:32.121 | INFO    | Flow run 'defiant-badger' - Beginning flow run 'defiant-badger' for flow 'pipeline-etl-escenarios'
+16:28:32.122 | INFO    | Flow run 'defiant-badger' - View at http://127.0.0.1:57312/runs/flow-run/b290c35f-a2dd-4e1a-b5bd-c87c4d76dcce
+16:28:32.135 | INFO    | Task run 'extraer-617' - Extraer: intento 1
+16:28:32.137 | INFO    | Task run 'extraer-617' - Task run failed with exception: ConnectionError('Desconexión simulada (intento 1)') - Retry 1/3 will start 2 second(s) from now
+16:28:34.147 | INFO    | Task run 'extraer-617' - Extraer: intento 2
+16:28:34.149 | INFO    | Task run 'extraer-617' - Task run failed with exception: ConnectionError('Desconexión simulada (intento 2)') - Retry 2/3 will start 2 second(s) from now
+16:28:36.157 | INFO    | Task run 'extraer-617' - Extraer: intento 3
+16:28:36.159 | INFO    | Task run 'extraer-617' - Extraer: éxito en el intento 3 -> [10, 20, 30]
+16:28:36.168 | INFO    | Task run 'extraer-617' - Finished in state Completed()
+16:28:36.182 | INFO    | Task run 'transformar-595' - Transformar: [10, 20, 30] -> [20, 40, 60]
+16:28:36.191 | INFO    | Task run 'transformar-595' - Finished in state Completed()
+16:28:36.204 | INFO    | Task run 'guardar-878' - Guardar: 3 registros guardados (total = 120)
+16:28:36.213 | INFO    | Task run 'guardar-878' - Finished in state Completed()
+16:28:36.242 | INFO    | Task run 'exportar_csv-9bf' - CSV: prefect_temporal_b290c35f-a2dd-4e1a-b5bd-c87c4d76dcce.csv (total = 120)
+16:28:36.251 | INFO    | Task run 'exportar_csv-9bf' - Finished in state Completed()
+16:28:36.346 | INFO    | Flow run 'defiant-badger' - Finished in state Completed()
+16:28:40.892 | INFO    | Flow run 'stoic-orca' - Beginning flow run 'stoic-orca' for flow 'pipeline-etl-escenarios'
+16:28:40.894 | INFO    | Flow run 'stoic-orca' - View at http://127.0.0.1:57312/runs/flow-run/b539491c-5612-4456-8fa8-70a6dd9686cf
+16:28:40.905 | INFO    | Task run 'extraer-cd2' - Extraer: intento 1
+16:28:40.907 | INFO    | Task run 'extraer-cd2' - Task run failed with exception: ConnectionError('Desconexión simulada (intento 1)') - Retry 1/3 will start 2 second(s) from now
+16:28:42.916 | INFO    | Task run 'extraer-cd2' - Extraer: intento 2
+16:28:42.918 | INFO    | Task run 'extraer-cd2' - Task run failed with exception: ConnectionError('Desconexión simulada (intento 2)') - Retry 2/3 will start 2 second(s) from now
+16:28:44.926 | INFO    | Task run 'extraer-cd2' - Extraer: intento 3
+16:28:44.928 | INFO    | Task run 'extraer-cd2' - Task run failed with exception: ConnectionError('Desconexión simulada (intento 3)') - Retry 3/3 will start 2 second(s) from now
+16:28:46.936 | INFO    | Task run 'extraer-cd2' - Extraer: intento 4
+16:28:46.938 | ERROR   | Task run 'extraer-cd2' - Task run failed with exception: ConnectionError('Desconexión simulada (intento 4)') - Retries are exhausted
+Traceback (most recent call last):
+  File "<ruta>/site-packages\prefect\task_engine.py", line 1072, in run_context
+    yield self
+  File "<ruta>/site-packages\prefect\task_engine.py", line 1777, in run_task_sync
+    engine.call_task_fn(txn)
+  File "<ruta>/site-packages\prefect\task_engine.py", line 1093, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\utilities\callables\__init__.py", line 404, in call_with_parameters
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/Sesion49_Equipo3_Prefect\demo_prefect_escenarios.py", line 30, in extraer
+    raise ConnectionError(f"Desconexión simulada (intento {n})")
+ConnectionError: Desconexión simulada (intento 4)
+16:28:46.957 | ERROR   | Task run 'extraer-cd2' - Finished in state Failed('Task run encountered an exception ConnectionError: Desconexión simulada (intento 4)')
+16:28:46.959 | ERROR   | Flow run 'stoic-orca' - Encountered exception during execution: ConnectionError('Desconexión simulada (intento 4)')
+Traceback (most recent call last):
+  File "<ruta>/site-packages\prefect\flow_engine.py", line 1449, in run_context
+    yield self
+  File "<ruta>/site-packages\prefect\flow_engine.py", line 2337, in run_flow_sync
+    engine.call_flow_fn()
+  File "<ruta>/site-packages\prefect\flow_engine.py", line 1471, in call_flow_fn
+    result = call_with_parameters(self.flow.fn, self.parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\utilities\callables\__init__.py", line 404, in call_with_parameters
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/Sesion49_Equipo3_Prefect\demo_prefect_escenarios.py", line 53, in pipeline
+    limpios = transformar(extraer(escenario))
+                          ^^^^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\tasks.py", line 1240, in __call__
+    return run_task(
+           ^^^^^^^^^
+  File "<ruta>/site-packages\prefect\task_engine.py", line 2046, in run_task
+    return run_task_sync(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\task_engine.py", line 1780, in run_task_sync
+    return engine.state if return_type == "state" else engine.result()
+                                                       ^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\task_engine.py", line 636, in result
+    raise self._raised
+  File "<ruta>/site-packages\prefect\task_engine.py", line 1072, in run_context
+    yield self
+  File "<ruta>/site-packages\prefect\task_engine.py", line 1777, in run_task_sync
+    engine.call_task_fn(txn)
+  File "<ruta>/site-packages\prefect\task_engine.py", line 1093, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\utilities\callables\__init__.py", line 404, in call_with_parameters
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/Sesion49_Equipo3_Prefect\demo_prefect_escenarios.py", line 30, in extraer
+    raise ConnectionError(f"Desconexión simulada (intento {n})")
+ConnectionError: Desconexión simulada (intento 4)
+16:28:47.052 | INFO    | Flow run 'stoic-orca' - Finished in state Failed('Flow run encountered an exception: ConnectionError: Desconexión simulada (intento 4)')
+ok
+test_normal (test_prefect.Prefect.test_normal) ... 16:28:51.542 | INFO    | Flow run 'orchid-dingo' - Beginning flow run 'orchid-dingo' for flow 'pipeline-etl-escenarios'
+16:28:51.543 | INFO    | Flow run 'orchid-dingo' - View at http://127.0.0.1:57312/runs/flow-run/a21974d8-f818-4465-8aa9-351c4a1404c4
+16:28:51.556 | INFO    | Task run 'extraer-774' - Extraer: intento 1
+16:28:51.559 | INFO    | Task run 'extraer-774' - Extraer: éxito en el intento 1 -> [10, 20, 30]
+16:28:51.567 | INFO    | Task run 'extraer-774' - Finished in state Completed()
+16:28:51.579 | INFO    | Task run 'transformar-967' - Transformar: [10, 20, 30] -> [20, 40, 60]
+16:28:51.587 | INFO    | Task run 'transformar-967' - Finished in state Completed()
+16:28:51.597 | INFO    | Task run 'guardar-c5c' - Guardar: 3 registros guardados (total = 120)
+16:28:51.605 | INFO    | Task run 'guardar-c5c' - Finished in state Completed()
+16:28:51.618 | INFO    | Task run 'exportar_csv-2fb' - CSV: prefect_normal_a21974d8-f818-4465-8aa9-351c4a1404c4.csv (total = 120)
+16:28:51.624 | INFO    | Task run 'exportar_csv-2fb' - Finished in state Completed()
+16:28:51.683 | INFO    | Flow run 'orchid-dingo' - Finished in state Completed()
+ok
+test_permanente (test_prefect.Prefect.test_permanente) ... 16:28:56.273 | INFO    | Flow run 'super-shark' - Beginning flow run 'super-shark' for flow 'pipeline-etl-escenarios'
+16:28:56.275 | INFO    | Flow run 'super-shark' - View at http://127.0.0.1:57312/runs/flow-run/38fc899a-604b-41af-88a6-fee782d0f542
+16:28:56.285 | INFO    | Task run 'extraer-b44' - Extraer: intento 1
+16:28:56.287 | INFO    | Task run 'extraer-b44' - Task run failed with exception: ConnectionError('Desconexión simulada (intento 1)') - Retry 1/3 will start 2 second(s) from now
+16:28:58.294 | INFO    | Task run 'extraer-b44' - Extraer: intento 2
+16:28:58.296 | INFO    | Task run 'extraer-b44' - Task run failed with exception: ConnectionError('Desconexión simulada (intento 2)') - Retry 2/3 will start 2 second(s) from now
+16:29:00.304 | INFO    | Task run 'extraer-b44' - Extraer: intento 3
+16:29:00.306 | INFO    | Task run 'extraer-b44' - Task run failed with exception: ConnectionError('Desconexión simulada (intento 3)') - Retry 3/3 will start 2 second(s) from now
+16:29:02.315 | INFO    | Task run 'extraer-b44' - Extraer: intento 4
+16:29:02.318 | ERROR   | Task run 'extraer-b44' - Task run failed with exception: ConnectionError('Desconexión simulada (intento 4)') - Retries are exhausted
+Traceback (most recent call last):
+  File "<ruta>/site-packages\prefect\task_engine.py", line 1072, in run_context
+    yield self
+  File "<ruta>/site-packages\prefect\task_engine.py", line 1777, in run_task_sync
+    engine.call_task_fn(txn)
+  File "<ruta>/site-packages\prefect\task_engine.py", line 1093, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\utilities\callables\__init__.py", line 404, in call_with_parameters
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/Sesion49_Equipo3_Prefect\demo_prefect_escenarios.py", line 30, in extraer
+    raise ConnectionError(f"Desconexión simulada (intento {n})")
+ConnectionError: Desconexión simulada (intento 4)
+16:29:02.330 | ERROR   | Task run 'extraer-b44' - Finished in state Failed('Task run encountered an exception ConnectionError: Desconexión simulada (intento 4)')
+16:29:02.334 | ERROR   | Flow run 'super-shark' - Encountered exception during execution: ConnectionError('Desconexión simulada (intento 4)')
+Traceback (most recent call last):
+  File "<ruta>/site-packages\prefect\flow_engine.py", line 1449, in run_context
+    yield self
+  File "<ruta>/site-packages\prefect\flow_engine.py", line 2337, in run_flow_sync
+    engine.call_flow_fn()
+  File "<ruta>/site-packages\prefect\flow_engine.py", line 1471, in call_flow_fn
+    result = call_with_parameters(self.flow.fn, self.parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\utilities\callables\__init__.py", line 404, in call_with_parameters
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/Sesion49_Equipo3_Prefect\demo_prefect_escenarios.py", line 53, in pipeline
+    limpios = transformar(extraer(escenario))
+                          ^^^^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\tasks.py", line 1240, in __call__
+    return run_task(
+           ^^^^^^^^^
+  File "<ruta>/site-packages\prefect\task_engine.py", line 2046, in run_task
+    return run_task_sync(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\task_engine.py", line 1780, in run_task_sync
+    return engine.state if return_type == "state" else engine.result()
+                                                       ^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\task_engine.py", line 636, in result
+    raise self._raised
+  File "<ruta>/site-packages\prefect\task_engine.py", line 1072, in run_context
+    yield self
+  File "<ruta>/site-packages\prefect\task_engine.py", line 1777, in run_task_sync
+    engine.call_task_fn(txn)
+  File "<ruta>/site-packages\prefect\task_engine.py", line 1093, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\utilities\callables\__init__.py", line 404, in call_with_parameters
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/Sesion49_Equipo3_Prefect\demo_prefect_escenarios.py", line 30, in extraer
+    raise ConnectionError(f"Desconexión simulada (intento {n})")
+ConnectionError: Desconexión simulada (intento 4)
+16:29:02.427 | INFO    | Flow run 'super-shark' - Finished in state Failed('Flow run encountered an exception: ConnectionError: Desconexión simulada (intento 4)')
+ok
+test_temporal (test_prefect.Prefect.test_temporal) ... 16:29:06.882 | INFO    | Flow run 'perky-skink' - Beginning flow run 'perky-skink' for flow 'pipeline-etl-escenarios'
+16:29:06.885 | INFO    | Flow run 'perky-skink' - View at http://127.0.0.1:57312/runs/flow-run/3725ccb4-6ee4-43ce-810c-999138396ea3
+16:29:06.897 | INFO    | Task run 'extraer-e58' - Extraer: intento 1
+16:29:06.899 | INFO    | Task run 'extraer-e58' - Task run failed with exception: ConnectionError('Desconexión simulada (intento 1)') - Retry 1/3 will start 2 second(s) from now
+16:29:08.908 | INFO    | Task run 'extraer-e58' - Extraer: intento 2
+16:29:08.911 | INFO    | Task run 'extraer-e58' - Task run failed with exception: ConnectionError('Desconexión simulada (intento 2)') - Retry 2/3 will start 2 second(s) from now
+16:29:10.922 | INFO    | Task run 'extraer-e58' - Extraer: intento 3
+16:29:10.924 | INFO    | Task run 'extraer-e58' - Extraer: éxito en el intento 3 -> [10, 20, 30]
+16:29:10.934 | INFO    | Task run 'extraer-e58' - Finished in state Completed()
+16:29:10.949 | INFO    | Task run 'transformar-ce8' - Transformar: [10, 20, 30] -> [20, 40, 60]
+16:29:10.958 | INFO    | Task run 'transformar-ce8' - Finished in state Completed()
+16:29:10.972 | INFO    | Task run 'guardar-d82' - Guardar: 3 registros guardados (total = 120)
+16:29:10.979 | INFO    | Task run 'guardar-d82' - Finished in state Completed()
+16:29:10.995 | INFO    | Task run 'exportar_csv-a87' - CSV: prefect_temporal_3725ccb4-6ee4-43ce-810c-999138396ea3.csv (total = 120)
+16:29:11.005 | INFO    | Task run 'exportar_csv-a87' - Finished in state Completed()
+16:29:11.099 | INFO    | Flow run 'perky-skink' - Finished in state Completed()
+ok
+16:29:14.857 | INFO    | prefect - Stopping temporary server on http://127.0.0.1:57312
+
+----------------------------------------------------------------------
+Ran 15 tests in 93.054s
+
+OK (skipped=7)
+Exception ignored in atexit callback: <function prefect_test_harness.<locals>.cleanup_temp_dir at 0x0000025B9AB839C0>
+Traceback (most recent call last):
+  File "<ruta>/site-packages\prefect\testing\utilities.py", line 150, in cleanup_temp_dir
+    shutil.rmtree(temp_dir)
+  File "C:\Users\<usuario>\AppData\Local\Programs\Python\Python312\Lib\shutil.py", line 781, in rmtree
+    return _rmtree_unsafe(path, onexc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\<usuario>\AppData\Local\Programs\Python\Python312\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.unlink, fullname, err)
+  File "C:\Users\<usuario>\AppData\Local\Programs\Python\Python312\Lib\shutil.py", line 633, in _rmtree_unsafe
+    os.unlink(fullname)
+PermissionError: [WinError 32] El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso: '<ruta>/Temp\\tmpfahb74tg\\prefect-test.db'
+[código de salida: 0]

@@ -1,0 +1,19 @@
+$ <venv>/bin/python demo_prefect.py
+16:21:05.066 | INFO    | prefect - Starting temporary server on http://127.0.0.1:8427
+See https://www.prefect.io/docs/v3/concepts/server#how-to-guides for more information on running a dedicated Prefect server.
+16:21:38.240 | INFO    | Flow run 'powerful-toucan' - Beginning flow run 'powerful-toucan' for flow 'pipeline-etl'
+16:21:38.342 | INFO    | Task run 'extraer-6a7' - Extraer: intento 1
+16:21:38.344 | INFO    | Task run 'extraer-6a7' - Task run failed with exception: ConnectionError('Desconexión temporal simulada (intento 1)') - Retry 1/3 will start 2 second(s) from now
+16:21:40.354 | INFO    | Task run 'extraer-6a7' - Extraer: intento 2
+16:21:40.357 | INFO    | Task run 'extraer-6a7' - Task run failed with exception: ConnectionError('Desconexión temporal simulada (intento 2)') - Retry 2/3 will start 2 second(s) from now
+16:21:42.363 | INFO    | Task run 'extraer-6a7' - Extraer: intento 3
+16:21:42.365 | INFO    | Task run 'extraer-6a7' - Extraer: conexión recuperada en el intento 3 -> [10, 20, 30]
+16:21:42.374 | INFO    | Task run 'extraer-6a7' - Finished in state Completed()
+16:21:42.393 | INFO    | Task run 'transformar-a8b' - Transformar: [10, 20, 30] -> [20, 40, 60]
+16:21:42.403 | INFO    | Task run 'transformar-a8b' - Finished in state Completed()
+16:21:42.413 | INFO    | Task run 'guardar-6ee' - Guardar: 3 registros guardados (total = 120)
+16:21:42.417 | INFO    | Task run 'guardar-6ee' - Finished in state Completed()
+16:21:42.422 | INFO    | Flow run 'powerful-toucan' - Resultado final: [20, 40, 60] | total = 120
+16:21:42.595 | INFO    | Flow run 'powerful-toucan' - Finished in state Completed()
+16:21:42.645 | INFO    | prefect - Stopping temporary server on http://127.0.0.1:8427
+[código de salida: 0]

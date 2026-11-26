@@ -39,3 +39,7 @@ resultados/*
 # Reportes con datos personales (solo se versiona la versión sin nombre)
 reporte/Sesion_49_*.pdf
 !reporte/Sesion_49_Apellido_Nombre.pdf
+
+# Reporte: HTML intermedio de figuras (se regenera con generar_figuras.py)
+reporte/figuras/html/
+!reporte/Sesion_49_Equipo_3.pdf

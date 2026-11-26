@@ -51,7 +51,7 @@ exigen que la operación sea idempotente; aquí el CSV se escribe en un solo pas
 
 Mismo ETL ([clima_demo/](../clima_demo/README.md)) con datos **reales** de Colima, Villa de Álvarez y
 Manzanillo. Se ejecuta diario a las 12:00 PM y escribe en un histórico CSV sin duplicados. Open-Meteo
-sustituye a Reddit como fuente principal porque no requiere credenciales ni aprobación previa.
+sustituye a Reddit como fuente principal porque no requiere credenciales, y el equipo no dispone de las que exige la API de Reddit.
 
 | Aspecto | Cron + `cron_clima.sh` | Prefect (`flujo_clima_prefect.py`) |
 |---|---|---|

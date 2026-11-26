@@ -22,6 +22,7 @@ Salidas reales del 25 de noviembre de 2026. Solo se sustituyeron rutas y usuario
 | `14_clima_csv_historico.txt` | Histórico CSV y verificación: filas, unidades y 0 duplicados |
 | `15_clima_pruebas_linux.txt` | `tests/test_clima.py` en WSL, incluida una consulta real |
 | `16_crontab_wsl_real.txt` | Ejecución **efectiva** por el servicio cron de WSL (minuto cercano) y línea definitiva de 12:00 PM |
+| `18_prefect_ui_escenarios.txt` | Tres escenarios contra el servidor Prefect local; son las ejecuciones de las capturas del reporte |
 | `17_prefect_serve_ui.txt` | Servidor Prefect + `serve` con minuto cercano; programación definitiva `0 12 * * *` en `America/Mexico_City` |
 
 Los 01 a 08 se regeneran con `PY=<venv>/bin/python bash tests/generar_evidencias.sh`, y los 12 a 15 con
@@ -52,5 +53,5 @@ línea en crontab y esperar al minuto programado; el procedimiento está en `cli
   se usó un minuto cercano y luego se dejó instalada la línea definitiva `0 12 * * *`. No se esperó a
   un mediodía real. La latitud y la longitud del CSV son las de la celda del modelo que devuelve la
   API, no las solicitadas.
-- En 17 no hay capturas de la interfaz web. Se usan `prefect deployment` y `prefect flow-run`, que
-  consultan la misma API que la UI.
+- En 17 se usan `prefect deployment` y `prefect flow-run`, que consultan la misma API que la UI. Las
+  capturas reales de la interfaz (ejecuciones de 18) están en `reporte/figuras/ui_*.png` y en el reporte.

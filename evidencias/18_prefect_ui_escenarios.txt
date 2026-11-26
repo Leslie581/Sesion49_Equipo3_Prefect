@@ -1,0 +1,129 @@
+# Escenarios contra servidor Prefect local (PREFECT_API_URL=http://127.0.0.1:4200/api), 2026-11-25T23:08:21-06:00
+# Son las ejecuciones que aparecen en las capturas de la Prefect UI del reporte.
+$ python clima_demo/flujo_clima_prefect.py --escenario normal
+23:04:46.427 | INFO    | Flow run 'axiomatic-goshawk' - Beginning flow run 'axiomatic-goshawk' for flow 'etl-clima-colima'
+23:04:46.439 | INFO    | Flow run 'axiomatic-goshawk' - View at http://127.0.0.1:4200/runs/flow-run/df8d53da-9629-43df-abfd-481546acb299
+23:04:46.473 | INFO    | Task run 'extraer-14e' - Extraer Open-Meteo: intento 1 (escenario=normal)
+23:04:46.766 | INFO    | Task run 'extraer-14e' - Extraer: 3 ubicaciones recibidas
+23:04:46.770 | INFO    | Task run 'extraer-14e' - Finished in state Completed()
+23:04:46.779 | INFO    | Task run 'transformar-bcb' -   2026-11-25T23:00 Colima: 23.3 °C, 94.0 %, 0.0 mm, 0.6 km/h
+23:04:46.782 | INFO    | Task run 'transformar-bcb' -   2026-11-25T23:00 Villa de Álvarez: 22.6 °C, 89.0 %, 0.0 mm, 1.2 km/h
+23:04:46.782 | INFO    | Task run 'transformar-bcb' -   2026-11-25T23:00 Manzanillo: 25.2 °C, 86.0 %, 0.0 mm, 7.6 km/h
+23:04:46.789 | INFO    | Task run 'transformar-bcb' - Finished in state Completed()
+23:04:46.820 | INFO    | Task run 'guardar-5f8' - Guardar: 3 filas nuevas, 0 duplicadas omitidas, 6 en clima_historico.csv
+23:04:46.824 | INFO    | Task run 'guardar-5f8' - Finished in state Completed()
+23:04:46.865 | INFO    | Flow run 'axiomatic-goshawk' - Finished in state Completed()
+Estado final: COMPLETED
+[código de salida: 0]
+
+$ python clima_demo/flujo_clima_prefect.py --escenario temporal
+23:04:49.480 | INFO    | Flow run 'glaring-phoenix' - Beginning flow run 'glaring-phoenix' for flow 'etl-clima-colima'
+23:04:49.490 | INFO    | Flow run 'glaring-phoenix' - View at http://127.0.0.1:4200/runs/flow-run/4525e281-7c32-435f-967b-205ba9efd082
+23:04:49.521 | INFO    | Task run 'extraer-eb5' - Extraer Open-Meteo: intento 1 (escenario=temporal)
+23:04:49.524 | INFO    | Task run 'extraer-eb5' - Task run failed with exception: ConnectionError('Desconexión simulada (escenario=temporal, intento 1)') - Retry 1/3 will start 5 second(s) from now
+23:04:54.536 | INFO    | Task run 'extraer-eb5' - Extraer Open-Meteo: intento 2 (escenario=temporal)
+23:04:54.541 | INFO    | Task run 'extraer-eb5' - Task run failed with exception: ConnectionError('Desconexión simulada (escenario=temporal, intento 2)') - Retry 2/3 will start 5 second(s) from now
+23:04:58.600 | INFO    | Task run 'extraer-eb5' - Extraer Open-Meteo: intento 3 (escenario=temporal)
+23:04:59.901 | INFO    | Task run 'extraer-eb5' - Extraer: 3 ubicaciones recibidas
+23:04:59.906 | INFO    | Task run 'extraer-eb5' - Finished in state Completed()
+23:04:59.915 | INFO    | Task run 'transformar-8d4' -   2026-11-25T23:00 Colima: 23.3 °C, 94.0 %, 0.0 mm, 0.6 km/h
+23:04:59.916 | INFO    | Task run 'transformar-8d4' -   2026-11-25T23:00 Villa de Álvarez: 22.6 °C, 89.0 %, 0.0 mm, 1.2 km/h
+23:04:59.917 | INFO    | Task run 'transformar-8d4' -   2026-11-25T23:00 Manzanillo: 25.2 °C, 86.0 %, 0.0 mm, 7.6 km/h
+23:04:59.921 | INFO    | Task run 'transformar-8d4' - Finished in state Completed()
+23:04:59.953 | INFO    | Task run 'guardar-b8f' - Guardar: 0 filas nuevas, 3 duplicadas omitidas, 6 en clima_historico.csv
+23:04:59.957 | INFO    | Task run 'guardar-b8f' - Finished in state Completed()
+23:05:00.002 | INFO    | Flow run 'glaring-phoenix' - Finished in state Completed()
+Estado final: COMPLETED
+[código de salida: 0]
+
+$ python clima_demo/flujo_clima_prefect.py --escenario permanente
+23:05:02.561 | INFO    | Flow run 'vigilant-sambar' - Beginning flow run 'vigilant-sambar' for flow 'etl-clima-colima'
+23:05:02.572 | INFO    | Flow run 'vigilant-sambar' - View at http://127.0.0.1:4200/runs/flow-run/0885008f-4c7c-4510-809b-8a7dc7f1e16e
+23:05:02.603 | INFO    | Task run 'extraer-84e' - Extraer Open-Meteo: intento 1 (escenario=permanente)
+23:05:02.607 | INFO    | Task run 'extraer-84e' - Task run failed with exception: ConnectionError('Desconexión simulada (escenario=permanente, intento 1)') - Retry 1/3 will start 5 second(s) from now
+23:05:07.624 | INFO    | Task run 'extraer-84e' - Extraer Open-Meteo: intento 2 (escenario=permanente)
+23:05:07.628 | INFO    | Task run 'extraer-84e' - Task run failed with exception: ConnectionError('Desconexión simulada (escenario=permanente, intento 2)') - Retry 2/3 will start 5 second(s) from now
+23:05:12.640 | INFO    | Task run 'extraer-84e' - Extraer Open-Meteo: intento 3 (escenario=permanente)
+23:05:12.644 | INFO    | Task run 'extraer-84e' - Task run failed with exception: ConnectionError('Desconexión simulada (escenario=permanente, intento 3)') - Retry 3/3 will start 5 second(s) from now
+23:05:17.658 | INFO    | Task run 'extraer-84e' - Extraer Open-Meteo: intento 4 (escenario=permanente)
+23:05:17.660 | ERROR   | Task run 'extraer-84e' - Task run failed with exception: ConnectionError('Desconexión simulada (escenario=permanente, intento 4)') - Retries are exhausted
+Traceback (most recent call last):
+  File "<home>/venvs/sesion49/lib/python3.12/site-packages/prefect/task_engine.py", line 1072, in run_context
+    yield self
+  File "<home>/venvs/sesion49/lib/python3.12/site-packages/prefect/task_engine.py", line 1777, in run_task_sync
+    engine.call_task_fn(txn)
+  File "<home>/venvs/sesion49/lib/python3.12/site-packages/prefect/task_engine.py", line 1093, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<home>/venvs/sesion49/lib/python3.12/site-packages/prefect/utilities/callables/__init__.py", line 404, in call_with_parameters
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "<proyecto>/clima_demo/flujo_clima_prefect.py", line 40, in extraer
+    crudo = etl.extraer(escenario, task_run.run_count)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<proyecto>/clima_demo/etl_clima.py", line 81, in extraer
+    simular_fallo(escenario, intento)
+  File "<proyecto>/clima_demo/etl_clima.py", line 65, in simular_fallo
+    raise ConnectionError(f"Desconexión simulada (escenario={escenario}, intento {intento})")
+ConnectionError: Desconexión simulada (escenario=permanente, intento 4)
+23:05:17.686 | ERROR   | Task run 'extraer-84e' - Finished in state Failed('Task run encountered an exception ConnectionError: Desconexión simulada (escenario=permanente, intento 4)')
+23:05:17.690 | ERROR   | Flow run 'vigilant-sambar' - Encountered exception during execution: ConnectionError('Desconexión simulada (escenario=permanente, intento 4)')
+Traceback (most recent call last):
+  File "<home>/venvs/sesion49/lib/python3.12/site-packages/prefect/flow_engine.py", line 1449, in run_context
+    yield self
+  File "<home>/venvs/sesion49/lib/python3.12/site-packages/prefect/flow_engine.py", line 2337, in run_flow_sync
+    engine.call_flow_fn()
+  File "<home>/venvs/sesion49/lib/python3.12/site-packages/prefect/flow_engine.py", line 1471, in call_flow_fn
+    result = call_with_parameters(self.flow.fn, self.parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<home>/venvs/sesion49/lib/python3.12/site-packages/prefect/utilities/callables/__init__.py", line 404, in call_with_parameters
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "<proyecto>/clima_demo/flujo_clima_prefect.py", line 67, in flujo_clima
+    return guardar(transformar(extraer(escenario)), salida)
+                               ^^^^^^^^^^^^^^^^^^
+  File "<home>/venvs/sesion49/lib/python3.12/site-packages/prefect/tasks.py", line 1240, in __call__
+    return run_task(
+           ^^^^^^^^^
+  File "<home>/venvs/sesion49/lib/python3.12/site-packages/prefect/task_engine.py", line 2046, in run_task
+    return run_task_sync(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "<home>/venvs/sesion49/lib/python3.12/site-packages/prefect/task_engine.py", line 1780, in run_task_sync
+    return engine.state if return_type == "state" else engine.result()
+                                                       ^^^^^^^^^^^^^^^
+  File "<home>/venvs/sesion49/lib/python3.12/site-packages/prefect/task_engine.py", line 636, in result
+    raise self._raised
+  File "<home>/venvs/sesion49/lib/python3.12/site-packages/prefect/task_engine.py", line 1072, in run_context
+    yield self
+  File "<home>/venvs/sesion49/lib/python3.12/site-packages/prefect/task_engine.py", line 1777, in run_task_sync
+    engine.call_task_fn(txn)
+  File "<home>/venvs/sesion49/lib/python3.12/site-packages/prefect/task_engine.py", line 1093, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<home>/venvs/sesion49/lib/python3.12/site-packages/prefect/utilities/callables/__init__.py", line 404, in call_with_parameters
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "<proyecto>/clima_demo/flujo_clima_prefect.py", line 40, in extraer
+    crudo = etl.extraer(escenario, task_run.run_count)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<proyecto>/clima_demo/etl_clima.py", line 81, in extraer
+    simular_fallo(escenario, intento)
+  File "<proyecto>/clima_demo/etl_clima.py", line 65, in simular_fallo
+    raise ConnectionError(f"Desconexión simulada (escenario={escenario}, intento {intento})")
+ConnectionError: Desconexión simulada (escenario=permanente, intento 4)
+23:05:17.741 | INFO    | Flow run 'vigilant-sambar' - Finished in state Failed('Flow run encountered an exception: ConnectionError: Desconexión simulada (escenario=permanente, intento 4)')
+Estado final: FAILED
+[código de salida: 1]
+
+$ prefect flow-run ls --limit 10
+                                                 Flow Runs                                                  
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┓
+┃                                   ID ┃ Flow             ┃ Name              ┃ State     ┃ When           ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━━━━━━┩
+│ 01a2163e-7cd5-778d-a07a-6252f29574f8 │ etl-clima-colima │ prodigious-rabbit │ SCHEDULED │ in 2 days      │
+│ 01a2163e-7cd5-76a5-a4f6-ef557695907e │ etl-clima-colima │ melodic-tuna      │ SCHEDULED │ in 1 day       │
+│ 01a2163e-7cd5-7629-a275-3f482a655de4 │ etl-clima-colima │ watchful-snake    │ SCHEDULED │ in 12 hours    │
+│ 0885008f-4c7c-4510-809b-8a7dc7f1e16e │ etl-clima-colima │ vigilant-sambar   │ FAILED    │ 20 seconds ago │
+│ 4525e281-7c32-435f-967b-205ba9efd082 │ etl-clima-colima │ glaring-phoenix   │ COMPLETED │ 38 seconds ago │
+│ df8d53da-9629-43df-abfd-481546acb299 │ etl-clima-colima │ axiomatic-goshawk │ COMPLETED │ 51 seconds ago │
+└──────────────────────────────────────┴──────────────────┴───────────────────┴───────────┴────────────────┘

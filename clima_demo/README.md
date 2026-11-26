@@ -9,7 +9,7 @@ y Manzanillo**: temperatura, humedad relativa, precipitación y velocidad del vi
 | Criterio | Reddit (PRAW) | Open-Meteo |
 |---|---|---|
 | Credenciales | OAuth: `client_id`, `client_secret` y aplicación registrada | Ninguna para uso no comercial |
-| Alta de acceso | Desde noviembre de 2025 el acceso nuevo requiere solicitud y aprobación (Responsible Builder Policy) | Inmediato |
+| Disponibilidad para el equipo | No: el equipo no dispone de credenciales | Inmediata |
 | Reproducible por cualquier integrante | No sin credenciales personales | Sí |
 | Datos | Comentarios (texto libre) | Series numéricas con unidades y zona horaria |
 
@@ -21,12 +21,9 @@ Fuentes oficiales:
 - Open-Meteo, [términos de uso](https://open-meteo.com/en/terms): uso no comercial gratuito, con
   *"Less than 10'000 API calls per day, 5'000 per hour and 600 per minute"* y licencia **CC BY 4.0**.
   Este ETL hace **una** llamada por ejecución, porque pide las tres ciudades juntas.
-- Reddit: [Responsible Builder Policy](https://support.reddithelp.com/hc/en-us/articles/42728983564564-Responsible-Builder-Policy),
-  [Data API Wiki](https://support.reddithelp.com/hc/en-us/articles/16160319875092-Reddit-Data-API-Wiki) y
-  [anuncio en r/redditdev (11 nov 2025)](https://www.reddit.com/r/redditdev/comments/1oug31u/).
-  Las páginas de ayuda de Reddit rechazan la lectura automatizada (HTTP 403), así que hay que
-  consultarlas en un navegador. La necesidad de credenciales OAuth ya estaba documentada en
-  [reddit_demo/](../reddit_demo/README.md).
+- Reddit: la extracción con PRAW requiere una aplicación registrada y credenciales OAuth
+  ([PRAW, autenticación](https://praw.readthedocs.io/en/stable/getting_started/authentication.html)),
+  de las que el equipo no dispone. Ver [reddit_demo/](../reddit_demo/README.md).
 
 Reddit se conserva como **ejemplo opcional** en `reddit_demo/`. Ningún archivo del caso principal lo importa.
 

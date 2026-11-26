@@ -1,0 +1,8 @@
+[{"url":"http://127.0.0.1:4200/dashboard","archivo":"ui_01_dashboard.png","espera":7000},
+ {"url":"http://127.0.0.1:4200/runs","archivo":"ui_02_runs.png","espera":7000},
+ {"url":"http://127.0.0.1:4200/runs/flow-run/4525e281-7c32-435f-967b-205ba9efd082","archivo":"ui_03_flujo_temporal.png","espera":8000},
+ {"url":"http://127.0.0.1:4200/runs/task-run/01a2163d-f75a-7000-9bda-2d8d5bb944ac","archivo":"ui_04_tarea_reintentos_temporal.png","espera":8000},
+ {"url":"http://127.0.0.1:4200/runs/flow-run/0885008f-4c7c-4510-809b-8a7dc7f1e16e","archivo":"ui_05_flujo_permanente.png","espera":8000},
+ {"url":"http://127.0.0.1:4200/runs/task-run/01a2163e-2a74-7e55-ad28-6ac87d84596b","archivo":"ui_06_tarea_permanente.png","espera":8000},
+ {"url":"http://127.0.0.1:4200/runs/flow-run/df8d53da-9629-43df-abfd-481546acb299","archivo":"ui_07_flujo_normal.png","espera":8000},
+ {"url":"http://127.0.0.1:4200/deployments/deployment/5a44fa94-d7d0-4e0b-8947-5604eec630a2","archivo":"ui_08_programacion.png","espera":8000}]

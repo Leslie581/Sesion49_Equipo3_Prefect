@@ -3,7 +3,7 @@
 Orquestación de flujos de datos con **Prefect** — Equipo 3, Ingeniería de Datos (7mo semestre, Unidad III).
 
 ## Caso práctico principal: clima de Colima (Open-Meteo)
-Por las restricciones actuales de acceso a la API de Reddit (credenciales OAuth y aprobación previa), la fuente principal de la práctica es **[Open-Meteo](https://open-meteo.com/en/docs)**. Es una API meteorológica pública que no requiere credenciales para uso no comercial. El ETL extrae datos **reales** de temperatura, humedad, precipitación y viento de **Colima, Villa de Álvarez y Manzanillo**. Valida, limpia y acumula un histórico CSV sin duplicados que conserva fecha, hora, zona horaria, ciudad, unidades y fuente. El mismo código lo ejecutan **Cron** (reintentos manuales) y **Prefect** (reintentos automáticos), todos los días a las **12:00 PM, hora de `America/Mexico_City`**.
+Como el equipo no dispone de las credenciales OAuth que exige la API de Reddit, la fuente principal de la práctica es **[Open-Meteo](https://open-meteo.com/en/docs)**. Es una API meteorológica pública que no requiere credenciales para uso no comercial. El ETL extrae datos **reales** de temperatura, humedad, precipitación y viento de **Colima, Villa de Álvarez y Manzanillo**. Valida, limpia y acumula un histórico CSV sin duplicados que conserva fecha, hora, zona horaria, ciudad, unidades y fuente. El mismo código lo ejecutan **Cron** (reintentos manuales) y **Prefect** (reintentos automáticos), todos los días a las **12:00 PM, hora de `America/Mexico_City`**.
 
 ```bash
 python3 clima_demo/etl_clima.py                                  # una consulta real
@@ -17,6 +17,8 @@ python clima_demo/flujo_clima_prefect.py --servir               # Prefect: diari
 | `normal` | 1 intento, código 0, datos reales | 1 intento, Completed |
 | `temporal` (2 desconexiones simuladas y luego una consulta real) | 3 intentos, código 0 | 3 intentos, Completed |
 | `permanente` (desconexión simulada en todos los intentos) | 4 intentos, código 1, sin datos | 4 intentos, Failed, código 1 |
+
+Reporte técnico completo con capturas de Prefect UI: [reporte/Sesion_49_Equipo_3.pdf](reporte/Sesion_49_Equipo_3.pdf) ([DOCX](reporte/Sesion_49_Equipo_3.docx)).
 
 Diseño, justificación con documentación oficial, zona horaria, programación y monitoreo: [clima_demo/README.md](clima_demo/README.md). Evidencias reales: archivos 12 a 17 de [evidencias/](evidencias/README.md), incluida una ejecución efectiva de `crontab` en WSL.
 
@@ -44,7 +46,7 @@ El proyecto compara dos formas de automatizar un mismo ETL: **Prefect** y **Cron
 ├── docs/COMPARATIVA_CRON_PREFECT.md
 ├── tests/                        pruebas y generador de evidencias
 ├── evidencias/                   salidas reales
-├── reporte/                      reporte individual y su fuente
+├── reporte/                      reporte técnico (PDF, DOCX), fuente y figuras
 └── resultados/                   CSV y registros (no versionados)
 ```
 - `Equipo3_Orquestacion_Prefect.pptx` / `.pdf`: presentación.

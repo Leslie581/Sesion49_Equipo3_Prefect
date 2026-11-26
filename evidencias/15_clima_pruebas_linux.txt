@@ -1,0 +1,16 @@
+$ <venv>/bin/python -W ignore -m unittest tests.test_clima -v
+test_permanente_agota_4_intentos_sin_csv (tests.test_clima.CronReintentos.test_permanente_agota_4_intentos_sin_csv) ... ok
+test_errores_http (tests.test_clima.Escenarios.test_errores_http) ... ok
+test_simulacion (tests.test_clima.Escenarios.test_simulacion) ... ok
+test_historico_sin_duplicados (tests.test_clima.Guardar.test_historico_sin_duplicados) ... ok
+test_consulta_real (tests.test_clima.RealAPI.test_consulta_real) ... ok
+test_conserva_ciudad_unidades_fuente (tests.test_clima.Transformar.test_conserva_ciudad_unidades_fuente) ... ok
+test_descarta_invalidos (tests.test_clima.Transformar.test_descarta_invalidos) ... ok
+test_todo_invalido_es_error_permanente (tests.test_clima.Transformar.test_todo_invalido_es_error_permanente) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.967s
+
+OK
+[código de salida: 0]
+

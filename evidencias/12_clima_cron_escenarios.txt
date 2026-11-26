@@ -1,0 +1,49 @@
+Fecha: 2026-11-25T22:37:32-06:00 (TZ del sistema: America/Mexico_City)
+$ bash clima_demo/cron_clima.sh normal
+2026-11-25 22:37:32 CST [INFO] Inicio escenario=normal pid=428
+Extraer: intento 1 (escenario=normal)
+  2026-11-25T22:30 Colima: 23.5 °C, 93.0 %, 0.0 mm, 1.1 km/h
+  2026-11-25T22:30 Villa de Álvarez: 22.8 °C, 89.0 %, 0.0 mm, 1.5 km/h
+  2026-11-25T22:30 Manzanillo: 25.5 °C, 86.0 %, 0.0 mm, 7.8 km/h
+Guardar: 3 filas nuevas, 0 duplicadas omitidas, 3 en evidencia_clima.csv
+2026-11-25 22:37:32 CST [INFO] Completado en 1 intento(s)
+[código de salida: 0]
+
+$ bash clima_demo/cron_clima.sh temporal
+2026-11-25 22:37:32 CST [INFO] Inicio escenario=temporal pid=442
+Extraer: intento 1 (escenario=temporal)
+Extraer: fallo transitorio: Desconexión simulada (escenario=temporal, intento 1)
+2026-11-25 22:37:32 CST [ERROR] Intento 1/4 falló con código 75
+2026-11-25 22:37:32 CST [INFO] Espera de 5s antes del siguiente intento
+Extraer: intento 2 (escenario=temporal)
+Extraer: fallo transitorio: Desconexión simulada (escenario=temporal, intento 2)
+2026-11-25 22:37:37 CST [ERROR] Intento 2/4 falló con código 75
+2026-11-25 22:37:37 CST [INFO] Espera de 5s antes del siguiente intento
+Extraer: intento 3 (escenario=temporal)
+  2026-11-25T22:30 Colima: 23.5 °C, 93.0 %, 0.0 mm, 1.1 km/h
+  2026-11-25T22:30 Villa de Álvarez: 22.8 °C, 89.0 %, 0.0 mm, 1.5 km/h
+  2026-11-25T22:30 Manzanillo: 25.5 °C, 86.0 %, 0.0 mm, 7.8 km/h
+Guardar: 0 filas nuevas, 3 duplicadas omitidas, 3 en evidencia_clima.csv
+2026-11-25 22:37:43 CST [INFO] Completado en 3 intento(s)
+[código de salida: 0]
+
+$ bash clima_demo/cron_clima.sh permanente
+2026-11-25 22:37:43 CST [INFO] Inicio escenario=permanente pid=477
+Extraer: intento 1 (escenario=permanente)
+Extraer: fallo transitorio: Desconexión simulada (escenario=permanente, intento 1)
+2026-11-25 22:37:43 CST [ERROR] Intento 1/4 falló con código 75
+2026-11-25 22:37:43 CST [INFO] Espera de 5s antes del siguiente intento
+Extraer: intento 2 (escenario=permanente)
+Extraer: fallo transitorio: Desconexión simulada (escenario=permanente, intento 2)
+2026-11-25 22:37:49 CST [ERROR] Intento 2/4 falló con código 75
+2026-11-25 22:37:49 CST [INFO] Espera de 5s antes del siguiente intento
+Extraer: intento 3 (escenario=permanente)
+Extraer: fallo transitorio: Desconexión simulada (escenario=permanente, intento 3)
+2026-11-25 22:37:54 CST [ERROR] Intento 3/4 falló con código 75
+2026-11-25 22:37:54 CST [INFO] Espera de 5s antes del siguiente intento
+Extraer: intento 4 (escenario=permanente)
+Extraer: fallo transitorio: Desconexión simulada (escenario=permanente, intento 4)
+2026-11-25 22:37:59 CST [ERROR] Intento 4/4 falló con código 75
+2026-11-25 22:37:59 CST [ERROR] Reintentos agotados: no se guardaron datos
+[código de salida: 1]
+

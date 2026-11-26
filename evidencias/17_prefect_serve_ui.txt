@@ -1,0 +1,59 @@
+# Prefect server + flow.serve con Cron('46 22 * * *', timezone='America/Mexico_City') (2026-11-25T22:48:27-06:00)
+# Lo mismo que muestra la Prefect UI (http://127.0.0.1:4200), consultado por CLI.
+$ prefect deployment ls
+                                                                                                        Deployments                                                                                                         
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Name                                                                                  ┃ ID                                                                                   ┃ Work Pool                                 ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ etl-clima-colima/clima-diario-12pm                                                    │ e93a774d-3a7d-47b2-bdd8-b1f25e28a958                                                 │                                           │
+└───────────────────────────────────────────────────────────────────────────────────────┴──────────────────────────────────────────────────────────────────────────────────────┴───────────────────────────────────────────┘
+
+$ prefect flow-run ls
+                                                Flow Runs                                                 
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃                                   ID ┃ Flow             ┃ Name             ┃ State     ┃ When          ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ 01a2162c-c8df-74e0-8e70-9529da5fc4bd │ etl-clima-colima │ dangerous-rat    │ SCHEDULED │ in 3 days     │
+│ 01a2162a-1c60-71a1-be0e-26190225bbe4 │ etl-clima-colima │ myrtle-nyala     │ SCHEDULED │ in 2 days     │
+│ 01a2162a-1c60-7f27-b6ab-0c0992ce7ec4 │ etl-clima-colima │ fast-dolphin     │ SCHEDULED │ in 23 hours   │
+│ 01a2162a-1c60-746a-808b-725c127fe955 │ etl-clima-colima │ cerise-dragonfly │ COMPLETED │ 2 minutes ago │
+└──────────────────────────────────────┴──────────────────┴──────────────────┴───────────┴───────────────┘
+
+--- salida del proceso serve
+Your flow 'etl-clima-colima' is being served and polling for scheduled runs!
+
+To trigger a run for this flow, use the following command:
+
+        $ prefect deployment run 'etl-clima-colima/clima-diario-12pm'
+
+You can also run your flow via the Prefect UI: http://127.0.0.1:4200/deployments/deployment/e93a774d-3a7d-47b2-bdd8-b1f25e28a958
+
+22:46:00.343 | INFO    | Flow run 'cerise-dragonfly' - Beginning flow run 'cerise-dragonfly' for flow 'etl-clima-colima'
+22:46:00.350 | INFO    | Flow run 'cerise-dragonfly' - View at http://127.0.0.1:4200/runs/flow-run/01a2162a-1c60-746a-808b-725c127fe955
+22:46:00.416 | INFO    | Task run 'extraer-d34' - Extraer Open-Meteo: intento 1 (escenario=normal)
+22:46:00.696 | INFO    | Task run 'extraer-d34' - Extraer: 3 ubicaciones recibidas
+22:46:00.700 | INFO    | Task run 'extraer-d34' - Finished in state Completed()
+22:46:00.706 | INFO    | Task run 'transformar-010' -   2026-11-25T22:45 Colima: 23.4 °C, 94.0 %, 0.0 mm, 0.9 km/h
+22:46:00.707 | INFO    | Task run 'transformar-010' -   2026-11-25T22:45 Villa de Álvarez: 22.7 °C, 89.0 %, 0.0 mm, 1.4 km/h
+22:46:00.709 | INFO    | Task run 'transformar-010' -   2026-11-25T22:45 Manzanillo: 25.4 °C, 86.0 %, 0.0 mm, 7.8 km/h
+22:46:00.712 | INFO    | Task run 'transformar-010' - Finished in state Completed()
+22:46:00.739 | INFO    | Task run 'guardar-ed5' - Guardar: 0 filas nuevas, 3 duplicadas omitidas, 3 en clima_historico.csv
+22:46:00.742 | INFO    | Task run 'guardar-ed5' - Finished in state Completed()
+22:46:00.900 | INFO    | Flow run 'cerise-dragonfly' - Finished in state Completed()
+
+# Programación definitiva: --servir sin --cron (0 12 * * *, America/Mexico_City)
+$ prefect deployment inspect 'etl-clima-colima/clima-diario-12pm'
+    'name': 'clima-diario-12pm',
+            'schedule': {'cron': '0 12 * * *', 'timezone': 'America/Mexico_City', 'day_or': True},
+    'work_queue_name': None,
+    'work_pool_name': None,
+
+$ prefect flow-run ls --state SCHEDULED --limit 3
+                                               Flow Runs                                                
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━━━┓
+┃                                   ID ┃ Flow             ┃ Name             ┃ State     ┃ When        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━━━┩
+│ 01a2162f-221b-71a9-a4cb-a3ab23a6f1a0 │ etl-clima-colima │ fortunate-bonobo │ SCHEDULED │ in 2 days   │
+│ 01a2162f-221b-75ed-ad09-346ed08dc59a │ etl-clima-colima │ durable-quoll    │ SCHEDULED │ in 1 day    │
+│ 01a2162f-221b-7f81-8c91-0bd7b7858f6a │ etl-clima-colima │ yellow-mackerel  │ SCHEDULED │ in 13 hours │
+└──────────────────────────────────────┴──────────────────┴──────────────────┴───────────┴─────────────┘

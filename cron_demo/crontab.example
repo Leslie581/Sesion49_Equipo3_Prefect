@@ -22,7 +22,12 @@ PYTHON_BIN=/usr/bin/python3
 # D) Igual que C, pero todos los días a las 12:00 PM (mediodía). Medianoche = 12:00 AM = 0 0.
 #0 12 * * * /usr/bin/flock -n -E 99 "$PROYECTO/resultados/etl.lock" /bin/bash "$PROYECTO/cron_demo/reintentos.sh" normal >> "$PROYECTO/resultados/cron.log" 2>> "$PROYECTO/resultados/cron.error.log"
 
-# E) Extractor REAL de Reddit con Prefect, todos los días a las 12:00 PM.
+# F) CASO PRINCIPAL: clima real de Colima, Villa de Álvarez y Manzanillo (Open-Meteo), 12:00 PM.
+#    Sin credenciales. Cron usa la zona horaria DEL SISTEMA (Debian/Ubuntu no admite CRON_TZ):
+#    comprobar que sea America/Mexico_City con `cat /etc/timezone`. Ver clima_demo/README.md.
+#0 12 * * * /usr/bin/flock -n -E 99 "$PROYECTO/resultados/clima.lock" /bin/bash "$PROYECTO/clima_demo/cron_clima.sh" normal > /dev/null 2>> "$PROYECTO/resultados/clima_cron.error.log"
+
+# E) (Opcional) Extractor REAL de Reddit con Prefect, todos los días a las 12:00 PM.
 #    Las credenciales viven FUERA del repositorio, en un archivo con permisos 600:
 #    $HOME/.config/sesion49/reddit.env  (REDDIT_CLIENT_ID=..., REDDIT_CLIENT_SECRET=..., REDDIT_USER_AGENT=...)
 #    Usa el Python del entorno virtual, donde están instalados Prefect y PRAW.

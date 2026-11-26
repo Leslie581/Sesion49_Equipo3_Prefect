@@ -1,5 +1,7 @@
 # Extracción de comentarios de Reddit (PRAW)
 
+> **Ejemplo OPCIONAL.** El caso práctico principal es [clima_demo/](../clima_demo/README.md) (Open-Meteo, sin credenciales). Se cambió porque el equipo no dispone de credenciales de la API de Reddit.
+
 Extracción **real** desde internet, independiente de las demostraciones de Prefect y Cron (que
 simulan el fallo sin conexión). Es de solo lectura y no guarda nombres de autores.
 

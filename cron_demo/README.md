@@ -116,3 +116,6 @@ service cron status
 Conviene clonar el proyecto dentro de Linux (`~/`), no en `/mnt/c`. Cron corre únicamente
 mientras la distribución de WSL está encendida; si el equipo está apagado a medianoche,
 esa ejecución se pierde. El equivalente nativo de Windows es el Programador de tareas.
+
+## Caso Open-Meteo
+La línea F de `crontab.example` programa el ETL real de clima (`clima_demo/cron_clima.sh`) a las 12:00 PM, con la zona horaria del sistema. Instalación sin borrar otras tareas y prueba efectiva: [clima_demo/README.md](../clima_demo/README.md).

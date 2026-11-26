@@ -1,0 +1,31 @@
+# Prueba REAL de crontab en WSL (2026-11-25T22:48:27-06:00, TZ del sistema: America/Mexico_City)
+# Debian/Ubuntu cron no admite CRON_TZ: usa la zona horaria del sistema.
+$ service cron status | head -3
+● cron.service - Regular background program processing daemon
+     Loaded: loaded (/usr/lib/systemd/system/cron.service; enabled; preset: enabled)
+     Active: active (running) since Wed 2026-11-25 22:42:44 CST; 5min ago
+
+$ crontab -l   # línea TEMPORAL instalada (minuto cercano), sin otras tareas previas: no había tareas
+45 22 * * * /usr/bin/flock -n -E 99 "<proyecto>/resultados/clima.lock" /bin/bash "<proyecto>/clima_demo/cron_clima.sh" normal > /dev/null 2>> "<proyecto>/resultados/clima_cron.error.log"
+
+$ grep CRON /var/log/syslog | tail   # o journalctl -u cron
+Nov 25 22:45:01 <equipo> CRON[549]: (<usuario>) CMD (/usr/bin/flock -n -E 99 "<proyecto>/resultados/clima.lock" /bin/bash "<proyecto>/clima_demo/cron_clima.sh" normal > /dev/null 2>> "<proyecto>/resultados/clima_cron.error.log")
+2026-11-20T21:17:00.916035-06:00 <equipo> CRON[1657]: (root) CMD (cd / && run-parts --report /etc/cron.hourly)
+2026-11-20T22:17:01.160346-06:00 <equipo> CRON[1842]: (root) CMD (cd / && run-parts --report /etc/cron.hourly)
+2026-11-25T16:17:01.575288-06:00 <equipo> CRON[892]: (root) CMD (cd / && run-parts --report /etc/cron.hourly)
+2026-11-25T22:45:01.027208-06:00 <equipo> CRON[549]: (<usuario>) CMD (/usr/bin/flock -n -E 99 "<proyecto>/resultados/clima.lock" /bin/bash "<proyecto>/clima_demo/cron_clima.sh" normal > /dev/null 2>> "<proyecto>/resultados/clima_cron.error.log")
+
+$ tail -n 12 resultados/clima_cron.log   # registro escrito por la ejecución de Cron
+2026-11-25 22:45:01 CST [INFO] Inicio escenario=normal pid=551
+Extraer: intento 1 (escenario=normal)
+  2026-11-25T22:45 Colima: 23.4 °C, 94.0 %, 0.0 mm, 0.9 km/h
+  2026-11-25T22:45 Villa de Álvarez: 22.7 °C, 89.0 %, 0.0 mm, 1.4 km/h
+  2026-11-25T22:45 Manzanillo: 25.4 °C, 86.0 %, 0.0 mm, 7.8 km/h
+Guardar: 3 filas nuevas, 0 duplicadas omitidas, 3 en clima_historico.csv
+2026-11-25 22:45:01 CST [INFO] Completado en 1 intento(s)
+
+$ cat resultados/clima_cron.error.log
+
+# Configuración definitiva: la línea temporal se sustituyó por la de las 12:00 PM
+$ crontab -l
+0 12 * * * /usr/bin/flock -n -E 99 "<proyecto>/resultados/clima.lock" /bin/bash "<proyecto>/clima_demo/cron_clima.sh" normal > /dev/null 2>> "<proyecto>/resultados/clima_cron.error.log"

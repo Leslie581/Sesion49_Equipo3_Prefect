@@ -47,6 +47,31 @@ valor útil para la demostración. En producción conviene una espera mayor o cr
 con `serve` debe seguir activo. Si los datos se escriben en un destino externo, los reintentos
 exigen que la operación sea idempotente; aquí el CSV se escribe en un solo paso con `os.replace`.
 
+## Caso práctico principal: clima de Colima con Open-Meteo
+
+Mismo ETL ([clima_demo/](../clima_demo/README.md)) con datos **reales** de Colima, Villa de Álvarez y
+Manzanillo. Se ejecuta diario a las 12:00 PM y escribe en un histórico CSV sin duplicados. Open-Meteo
+sustituye a Reddit como fuente principal porque no requiere credenciales, y el equipo no dispone de las que exige la API de Reddit.
+
+| Aspecto | Cron + `cron_clima.sh` | Prefect (`flujo_clima_prefect.py`) |
+|---|---|---|
+| Programación 12:00 PM | `0 12 * * *` en crontab | `serve(schedules=[Cron("0 12 * * *", timezone=...)])` |
+| Zona horaria | La **del sistema**: Debian/Ubuntu no admite `CRON_TZ` | Explícita en la programación (`America/Mexico_City`) |
+| Reintentos | Bucle Bash: 1 + 3, espera 5 s, solo con código 75 (transitorio) | `retries=3, retry_delay_seconds=5, retry_condition_fn` |
+| Errores no reintentables (HTTP 4xx, datos inválidos) | Código 2, sin reintentar | La condición devuelve `False` y falla de inmediato |
+| Monitoreo | `clima_cron.log`, `clima_cron.error.log`, `journalctl -u cron` | Prefect UI: estados, intentos y registros por tarea |
+| Dependencias de ejecución | `python3` del sistema (solo biblioteca estándar) | Prefect, servidor y proceso `serve` activo |
+
+| Escenario | Cron | Prefect |
+|---|---|---|
+| normal | 1 intento, código 0, 3 ciudades | 1 intento, Completed |
+| temporal (2 desconexiones simuladas y luego una consulta real) | 3 intentos, código 0 | 3 intentos, Completed |
+| permanente | 4 intentos, código 1, sin escritura | 4 intentos, Failed, código 1 |
+
+Como el ETL es idempotente (clave `ciudad + fecha_hora_local` y reemplazo atómico), un reintento o una
+ejecución duplicada de Cron y Prefect en el mismo intervalo de 15 minutos no duplica filas
+(evidencia 14).
+
 ## Conclusión
 
 Cron decide **cuándo** iniciar un comando. Prefect también administra **qué ocurre después**:
@@ -56,6 +81,7 @@ Prefect requiere instalar y mantener más componentes; para una tarea aislada, C
 
 ## Referencias
 
+- Open-Meteo: <https://open-meteo.com/en/docs>, [términos](https://open-meteo.com/en/terms)
 - Prefect: <https://docs.prefect.io/> ([reintentos](https://docs.prefect.io/v3/how-to-guides/workflows/retries), [instalación](https://docs.prefect.io/v3/get-started/install), [procesos locales](https://docs.prefect.io/v3/how-to-guides/deployment_infra/run-flows-in-local-processes))
 - `crontab(5)`: <https://man7.org/linux/man-pages/man5/crontab.5.html>
 - `flock(1)`: <https://man7.org/linux/man-pages/man1/flock.1.html>

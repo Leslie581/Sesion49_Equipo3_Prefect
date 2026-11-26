@@ -1,0 +1,122 @@
+Fecha: 2026-11-25T22:37:59-06:00
+$ <venv>/bin/python clima_demo/flujo_clima_prefect.py --escenario normal --salida <proyecto>/resultados/evidencia_clima.csv
+22:38:04.735 | INFO    | prefect - Starting temporary server on http://127.0.0.1:8668
+See https://www.prefect.io/docs/v3/concepts/server#how-to-guides for more information on running a dedicated Prefect server.
+22:38:21.761 | INFO    | Flow run 'hysterical-bee' - Beginning flow run 'hysterical-bee' for flow 'etl-clima-colima'
+22:38:21.805 | INFO    | Task run 'extraer-bfa' - Extraer Open-Meteo: intento 1 (escenario=normal)
+22:38:22.095 | INFO    | Task run 'extraer-bfa' - Extraer: 3 ubicaciones recibidas
+22:38:22.099 | INFO    | Task run 'extraer-bfa' - Finished in state Completed()
+22:38:22.111 | INFO    | Task run 'transformar-723' -   2026-11-25T22:30 Colima: 23.5 °C, 93.0 %, 0.0 mm, 1.1 km/h
+22:38:22.117 | INFO    | Task run 'transformar-723' -   2026-11-25T22:30 Villa de Álvarez: 22.8 °C, 89.0 %, 0.0 mm, 1.5 km/h
+22:38:22.119 | INFO    | Task run 'transformar-723' -   2026-11-25T22:30 Manzanillo: 25.5 °C, 86.0 %, 0.0 mm, 7.8 km/h
+22:38:22.122 | INFO    | Task run 'transformar-723' - Finished in state Completed()
+22:38:22.154 | INFO    | Task run 'guardar-16b' - Guardar: 0 filas nuevas, 3 duplicadas omitidas, 3 en evidencia_clima.csv
+22:38:22.158 | INFO    | Task run 'guardar-16b' - Finished in state Completed()
+22:38:22.195 | INFO    | Flow run 'hysterical-bee' - Finished in state Completed()
+Estado final: COMPLETED
+22:38:22.238 | INFO    | prefect - Stopping temporary server on http://127.0.0.1:8668
+[código de salida: 0]
+
+$ <venv>/bin/python clima_demo/flujo_clima_prefect.py --escenario temporal --salida <proyecto>/resultados/evidencia_clima.csv
+22:38:27.267 | INFO    | prefect - Starting temporary server on http://127.0.0.1:8510
+See https://www.prefect.io/docs/v3/concepts/server#how-to-guides for more information on running a dedicated Prefect server.
+22:38:32.447 | INFO    | Flow run 'lemon-gaur' - Beginning flow run 'lemon-gaur' for flow 'etl-clima-colima'
+22:38:32.606 | INFO    | Task run 'extraer-f93' - Extraer Open-Meteo: intento 1 (escenario=temporal)
+22:38:32.610 | INFO    | Task run 'extraer-f93' - Task run failed with exception: ConnectionError('Desconexión simulada (escenario=temporal, intento 1)') - Retry 1/3 will start 5 second(s) from now
+22:38:36.657 | INFO    | Task run 'extraer-f93' - Extraer Open-Meteo: intento 2 (escenario=temporal)
+22:38:36.664 | INFO    | Task run 'extraer-f93' - Task run failed with exception: ConnectionError('Desconexión simulada (escenario=temporal, intento 2)') - Retry 2/3 will start 5 second(s) from now
+22:38:41.667 | INFO    | Task run 'extraer-f93' - Extraer Open-Meteo: intento 3 (escenario=temporal)
+22:38:42.862 | INFO    | Task run 'extraer-f93' - Extraer: 3 ubicaciones recibidas
+22:38:42.866 | INFO    | Task run 'extraer-f93' - Finished in state Completed()
+22:38:42.877 | INFO    | Task run 'transformar-165' -   2026-11-25T22:30 Colima: 23.5 °C, 93.0 %, 0.0 mm, 1.1 km/h
+22:38:42.880 | INFO    | Task run 'transformar-165' -   2026-11-25T22:30 Villa de Álvarez: 22.8 °C, 89.0 %, 0.0 mm, 1.5 km/h
+22:38:42.883 | INFO    | Task run 'transformar-165' -   2026-11-25T22:30 Manzanillo: 25.5 °C, 86.0 %, 0.0 mm, 7.8 km/h
+22:38:42.887 | INFO    | Task run 'transformar-165' - Finished in state Completed()
+22:38:42.923 | INFO    | Task run 'guardar-125' - Guardar: 0 filas nuevas, 3 duplicadas omitidas, 3 en evidencia_clima.csv
+22:38:42.926 | INFO    | Task run 'guardar-125' - Finished in state Completed()
+22:38:43.002 | INFO    | Flow run 'lemon-gaur' - Finished in state Completed()
+Estado final: COMPLETED
+22:38:43.028 | INFO    | prefect - Stopping temporary server on http://127.0.0.1:8510
+[código de salida: 0]
+
+$ <venv>/bin/python clima_demo/flujo_clima_prefect.py --escenario permanente --salida <proyecto>/resultados/evidencia_clima.csv
+22:38:48.377 | INFO    | prefect - Starting temporary server on http://127.0.0.1:8588
+See https://www.prefect.io/docs/v3/concepts/server#how-to-guides for more information on running a dedicated Prefect server.
+22:38:53.713 | INFO    | Flow run 'inquisitive-capybara' - Beginning flow run 'inquisitive-capybara' for flow 'etl-clima-colima'
+22:38:53.874 | INFO    | Task run 'extraer-db3' - Extraer Open-Meteo: intento 1 (escenario=permanente)
+22:38:53.877 | INFO    | Task run 'extraer-db3' - Task run failed with exception: ConnectionError('Desconexión simulada (escenario=permanente, intento 1)') - Retry 1/3 will start 5 second(s) from now
+22:38:58.881 | INFO    | Task run 'extraer-db3' - Extraer Open-Meteo: intento 2 (escenario=permanente)
+22:38:58.887 | INFO    | Task run 'extraer-db3' - Task run failed with exception: ConnectionError('Desconexión simulada (escenario=permanente, intento 2)') - Retry 2/3 will start 5 second(s) from now
+22:39:03.909 | INFO    | Task run 'extraer-db3' - Extraer Open-Meteo: intento 3 (escenario=permanente)
+22:39:03.915 | INFO    | Task run 'extraer-db3' - Task run failed with exception: ConnectionError('Desconexión simulada (escenario=permanente, intento 3)') - Retry 3/3 will start 5 second(s) from now
+22:39:07.942 | INFO    | Task run 'extraer-db3' - Extraer Open-Meteo: intento 4 (escenario=permanente)
+22:39:07.945 | ERROR   | Task run 'extraer-db3' - Task run failed with exception: ConnectionError('Desconexión simulada (escenario=permanente, intento 4)') - Retries are exhausted
+Traceback (most recent call last):
+  File "<venv>/lib/python3.12/site-packages/prefect/task_engine.py", line 1072, in run_context
+    yield self
+  File "<venv>/lib/python3.12/site-packages/prefect/task_engine.py", line 1777, in run_task_sync
+    engine.call_task_fn(txn)
+  File "<venv>/lib/python3.12/site-packages/prefect/task_engine.py", line 1093, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/prefect/utilities/callables/__init__.py", line 404, in call_with_parameters
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "<proyecto>/clima_demo/flujo_clima_prefect.py", line 40, in extraer
+    crudo = etl.extraer(escenario, task_run.run_count)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<proyecto>/clima_demo/etl_clima.py", line 81, in extraer
+    simular_fallo(escenario, intento)
+  File "<proyecto>/clima_demo/etl_clima.py", line 65, in simular_fallo
+    raise ConnectionError(f"Desconexión simulada (escenario={escenario}, intento {intento})")
+ConnectionError: Desconexión simulada (escenario=permanente, intento 4)
+22:39:07.971 | ERROR   | Task run 'extraer-db3' - Finished in state Failed('Task run encountered an exception ConnectionError: Desconexión simulada (escenario=permanente, intento 4)')
+22:39:07.974 | ERROR   | Flow run 'inquisitive-capybara' - Encountered exception during execution: ConnectionError('Desconexión simulada (escenario=permanente, intento 4)')
+Traceback (most recent call last):
+  File "<venv>/lib/python3.12/site-packages/prefect/flow_engine.py", line 1449, in run_context
+    yield self
+  File "<venv>/lib/python3.12/site-packages/prefect/flow_engine.py", line 2337, in run_flow_sync
+    engine.call_flow_fn()
+  File "<venv>/lib/python3.12/site-packages/prefect/flow_engine.py", line 1471, in call_flow_fn
+    result = call_with_parameters(self.flow.fn, self.parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/prefect/utilities/callables/__init__.py", line 404, in call_with_parameters
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "<proyecto>/clima_demo/flujo_clima_prefect.py", line 67, in flujo_clima
+    return guardar(transformar(extraer(escenario)), salida)
+                               ^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/prefect/tasks.py", line 1240, in __call__
+    return run_task(
+           ^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/prefect/task_engine.py", line 2046, in run_task
+    return run_task_sync(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/prefect/task_engine.py", line 1780, in run_task_sync
+    return engine.state if return_type == "state" else engine.result()
+                                                       ^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/prefect/task_engine.py", line 636, in result
+    raise self._raised
+  File "<venv>/lib/python3.12/site-packages/prefect/task_engine.py", line 1072, in run_context
+    yield self
+  File "<venv>/lib/python3.12/site-packages/prefect/task_engine.py", line 1777, in run_task_sync
+    engine.call_task_fn(txn)
+  File "<venv>/lib/python3.12/site-packages/prefect/task_engine.py", line 1093, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/prefect/utilities/callables/__init__.py", line 404, in call_with_parameters
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "<proyecto>/clima_demo/flujo_clima_prefect.py", line 40, in extraer
+    crudo = etl.extraer(escenario, task_run.run_count)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<proyecto>/clima_demo/etl_clima.py", line 81, in extraer
+    simular_fallo(escenario, intento)
+  File "<proyecto>/clima_demo/etl_clima.py", line 65, in simular_fallo
+    raise ConnectionError(f"Desconexión simulada (escenario={escenario}, intento {intento})")
+ConnectionError: Desconexión simulada (escenario=permanente, intento 4)
+22:39:08.031 | INFO    | Flow run 'inquisitive-capybara' - Finished in state Failed('Flow run encountered an exception: ConnectionError: Desconexión simulada (escenario=permanente, intento 4)')
+Estado final: FAILED
+22:39:08.050 | INFO    | prefect - Stopping temporary server on http://127.0.0.1:8588
+[código de salida: 1]
+

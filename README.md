@@ -2,7 +2,28 @@
 
 Orquestación de flujos de datos con **Prefect** — Equipo 3, Ingeniería de Datos (7mo semestre, Unidad III).
 
-## Descripción
+## Caso práctico principal: clima de Colima (Open-Meteo)
+Como el equipo no dispone de las credenciales OAuth que exige la API de Reddit, la fuente principal de la práctica es **[Open-Meteo](https://open-meteo.com/en/docs)**. Es una API meteorológica pública que no requiere credenciales para uso no comercial. El ETL extrae datos **reales** de temperatura, humedad, precipitación y viento de **Colima, Villa de Álvarez y Manzanillo**. Valida, limpia y acumula un histórico CSV sin duplicados que conserva fecha, hora, zona horaria, ciudad, unidades y fuente. El mismo código lo ejecutan **Cron** (reintentos manuales) y **Prefect** (reintentos automáticos), todos los días a las **12:00 PM, hora de `America/Mexico_City`**.
+
+```bash
+python3 clima_demo/etl_clima.py                                  # una consulta real
+bash clima_demo/cron_clima.sh temporal                           # Cron con reintentos (Linux/WSL)
+python clima_demo/flujo_clima_prefect.py --escenario temporal   # Prefect con reintentos
+python clima_demo/flujo_clima_prefect.py --servir               # Prefect: diario 12:00 PM
+```
+
+| Escenario | Cron (`cron_clima.sh`) | Prefect |
+|---|---|---|
+| `normal` | 1 intento, código 0, datos reales | 1 intento, Completed |
+| `temporal` (2 desconexiones simuladas y luego una consulta real) | 3 intentos, código 0 | 3 intentos, Completed |
+| `permanente` (desconexión simulada en todos los intentos) | 4 intentos, código 1, sin datos | 4 intentos, Failed, código 1 |
+
+Reporte técnico completo con capturas de Prefect UI: [reporte/Sesion_49_Equipo_3.pdf](reporte/Sesion_49_Equipo_3.pdf) ([DOCX](reporte/Sesion_49_Equipo_3.docx)).
+
+Diseño, justificación con documentación oficial, zona horaria, programación y monitoreo: [clima_demo/README.md](clima_demo/README.md). Evidencias reales: archivos 12 a 17 de [evidencias/](evidencias/README.md), incluida una ejecución efectiva de `crontab` en WSL.
+
+## Demostración base (simulada)
+
 El proyecto compara dos formas de automatizar un mismo ETL: **Prefect** y **Cron**. El proceso extrae `[10, 20, 30]`, transforma a `[20, 40, 60]` y guarda un CSV con total 120. No usa internet ni APIs externas: los fallos se simulan.
 
 `demo_prefect.py` implementa el flujo original (extraer → transformar → guardar). La extracción simula una desconexión temporal en los dos primeros intentos y se recupera gracias a `@task(retries=3, retry_delay_seconds=2)`. `demo_prefect_escenarios.py` reutiliza sus tareas y agrega tres escenarios y la salida CSV:
@@ -19,17 +40,19 @@ El proyecto compara dos formas de automatizar un mismo ETL: **Prefect** y **Cron
 ├── demo_prefect_escenarios.py    tres escenarios y CSV
 ├── programacion_recurrente.py    ejecución cada 60 s
 ├── requirements.txt
+├── clima_demo/                   CASO PRINCIPAL: ETL Open-Meteo (Cron y Prefect)
 ├── cron_demo/                    versión con Cron y Bash
-├── reddit_demo/                  extractor opcional de comentarios (PRAW)
+├── reddit_demo/                  ejemplo OPCIONAL de Reddit (PRAW, requiere credenciales)
 ├── docs/COMPARATIVA_CRON_PREFECT.md
 ├── tests/                        pruebas y generador de evidencias
 ├── evidencias/                   salidas reales
-├── reporte/                      reporte individual y su fuente
+├── reporte/                      reporte técnico (PDF, DOCX), fuente y figuras
 └── resultados/                   CSV y registros (no versionados)
 ```
 - `Equipo3_Orquestacion_Prefect.pptx` / `.pdf`: presentación.
 - `Equipo_3_Actividades_Prefect.docx`: actividades.
-- `Guion_Exposicion.md`: guion de la exposición.
+- `Guion_Exposicion.md`: guion de la exposición (8 integrantes, 5 min), ligado al caso Open-Meteo.
+- `docs/GUIA_DEMO_EN_VIVO.md`: guía de la demostración en vivo (escenario temporal, ventanas, comandos y resultados esperados).
 
 ## Requisitos
 - Python 3.11 o superior, menor que 3.16 (lo exige Prefect 3.9.5, la versión probada)
@@ -94,7 +117,9 @@ bash cron_demo/reintentos.sh temporal                     # reintentos manuales
 ```
 La programación diaria (medianoche o 12:00 PM con `0 12 * * *`), su comprobación y `flock` se explican en [cron_demo/README.md](cron_demo/README.md).
 
-## Extracción de Reddit (PRAW + Prefect)
+## Ejemplo opcional: extracción de Reddit (PRAW + Prefect)
+No es necesario para la práctica: el caso principal es `clima_demo/`. Se conserva como referencia.
+
 `reddit_demo/extractor_reddit.py` extrae comentarios reales con PRAW (solo lectura, credenciales en variables de entorno). `reddit_demo/flujo_reddit_prefect.py` lo integra con Prefect mediante `@flow`, `@task` y `retries=3, retry_delay_seconds=2`, y reintenta solo los errores de red. La línea E de `cron_demo/crontab.example` lo programa diariamente a las 12:00 PM.
 
 ```bash
@@ -141,9 +166,11 @@ python -m unittest discover -s tests -v
 | temporal | 1 intento, código 75 | 3 intentos, código 0 | 3 intentos, Completed |
 | permanente | 1 intento, código 75 | 4 intentos, código 1 | 4 intentos, Failed, código 1 |
 
-Linux (WSL): 15 de 15 aprobadas. Windows: 8 aprobadas y 7 omitidas porque requieren Bash de Linux. Detalle y observaciones en [evidencias/](evidencias/README.md).
+Linux (WSL): 15 de 15 aprobadas. Windows: 8 aprobadas y 7 omitidas porque requieren Bash de Linux.
+Caso Open-Meteo (`tests/test_clima.py`, incluye una consulta real): 8 de 8 en WSL; 7 aprobadas y 1 omitida (requiere Bash) en Windows. Evidencias 12 a 15 con `PY=<venv>/bin/python bash tests/generar_evidencias_clima.sh`. Detalle y observaciones en [evidencias/](evidencias/README.md).
 
 ## Referencias
+- Open-Meteo: <https://open-meteo.com/en/docs> y [términos](https://open-meteo.com/en/terms) (CC BY 4.0)
 - Prefect: <https://docs.prefect.io/>
 - `crontab(5)`: <https://man7.org/linux/man-pages/man5/crontab.5.html>
 - `flock(1)`: <https://man7.org/linux/man-pages/man1/flock.1.html>

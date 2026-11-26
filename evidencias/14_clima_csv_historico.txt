@@ -1,0 +1,11 @@
+# CSV histórico tras las 6 ejecuciones anteriores (Cron y Prefect escriben el mismo archivo)
+$ cat resultados/evidencia_clima.csv
+fecha_hora_local,zona_horaria,ciudad,latitud,longitud,temperatura,temperatura_unidad,humedad,humedad_unidad,precipitacion,precipitacion_unidad,viento,viento_unidad,fuente,consultado_utc
+2026-11-25T22:30,America/Mexico_City,Colima,19.2267,-103.7092,23.5,°C,93.0,%,0.0,mm,1.1,km/h,"Open-Meteo (api.open-meteo.com/v1/forecast, modelo best_match)",2026-11-26T04:37:32+00:00
+2026-11-25T22:30,America/Mexico_City,Manzanillo,19.0861,-104.3041,25.5,°C,86.0,%,0.0,mm,7.8,km/h,"Open-Meteo (api.open-meteo.com/v1/forecast, modelo best_match)",2026-11-26T04:37:32+00:00
+2026-11-25T22:30,America/Mexico_City,Villa de Álvarez,19.297,-103.7228,22.8,°C,89.0,%,0.0,mm,1.5,km/h,"Open-Meteo (api.open-meteo.com/v1/forecast, modelo best_match)",2026-11-26T04:37:32+00:00
+
+# Verificación: filas, ciudades y duplicados por (ciudad, fecha_hora_local)
+filas: 3 | ciudades: ['Colima', 'Manzanillo', 'Villa de Álvarez']
+duplicados: 0
+unidades: [('°C', '%', 'mm', 'km/h')]

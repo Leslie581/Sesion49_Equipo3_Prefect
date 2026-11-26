@@ -21,3 +21,9 @@ PYTHON_BIN=/usr/bin/python3
 
 # D) Igual que C, pero todos los días a las 12:00 PM (mediodía). Medianoche = 12:00 AM = 0 0.
 #0 12 * * * /usr/bin/flock -n -E 99 "$PROYECTO/resultados/etl.lock" /bin/bash "$PROYECTO/cron_demo/reintentos.sh" normal >> "$PROYECTO/resultados/cron.log" 2>> "$PROYECTO/resultados/cron.error.log"
+
+# E) Extractor REAL de Reddit con Prefect, todos los días a las 12:00 PM.
+#    Las credenciales viven FUERA del repositorio, en un archivo con permisos 600:
+#    $HOME/.config/sesion49/reddit.env  (REDDIT_CLIENT_ID=..., REDDIT_CLIENT_SECRET=..., REDDIT_USER_AGENT=...)
+#    Usa el Python del entorno virtual, donde están instalados Prefect y PRAW.
+#0 12 * * * /usr/bin/flock -n -E 99 "$PROYECTO/resultados/reddit.lock" /bin/bash -c 'set -a; . "$HOME/.config/sesion49/reddit.env"; exec "$PROYECTO/venv/bin/python" "$PROYECTO/reddit_demo/flujo_reddit_prefect.py" --subreddit dataengineering --publicaciones 3' >> "$PROYECTO/resultados/reddit_cron.log" 2>> "$PROYECTO/resultados/reddit_cron.error.log"

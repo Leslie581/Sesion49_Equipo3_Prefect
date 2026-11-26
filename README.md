@@ -94,8 +94,31 @@ bash cron_demo/reintentos.sh temporal                     # reintentos manuales
 ```
 La programación diaria (medianoche o 12:00 PM con `0 12 * * *`), su comprobación y `flock` se explican en [cron_demo/README.md](cron_demo/README.md).
 
-## Extractor opcional de Reddit
-`reddit_demo/extractor_reddit.py` extrae comentarios reales con PRAW (solo lectura, credenciales por variables de entorno). No forma parte de las demostraciones anteriores ni de `requirements.txt`; ver [reddit_demo/README.md](reddit_demo/README.md).
+## Extracción de Reddit (PRAW + Prefect)
+`reddit_demo/extractor_reddit.py` extrae comentarios reales con PRAW (solo lectura, credenciales en variables de entorno). `reddit_demo/flujo_reddit_prefect.py` lo integra con Prefect mediante `@flow`, `@task` y `retries=3, retry_delay_seconds=2`, y reintenta solo los errores de red. La línea E de `cron_demo/crontab.example` lo programa diariamente a las 12:00 PM.
+
+```bash
+pip install -r reddit_demo/requirements.txt   # opcional; también requiere credenciales
+python reddit_demo/flujo_reddit_prefect.py --subreddit dataengineering --publicaciones 1 --max-comentarios 5
+```
+Las pruebas del repositorio usan un cliente **simulado** (7/7 aprobadas). La extracción real **no** se ejecutó porque requiere credenciales. Pasos y diferencias en [reddit_demo/README.md](reddit_demo/README.md).
+
+## Solución de problemas en Windows: `whenever` y SQLAlchemy
+Prefect depende de `whenever` y de SQLAlchemy, que incluyen extensiones compiladas (`.pyd`). Si **Control inteligente de aplicaciones** o una directiva de control de aplicaciones de Windows las bloquea, al importar Prefect aparece `ImportError: DLL load failed while importing _whenever` (o `_row_cy`, `_processors_cy`, etc.), junto con un mensaje que indica que una directiva de Control de aplicaciones bloqueó el archivo. Ninguno de los dos paquetes cambia solo a Python puro en ese caso: las versiones instaladas (`whenever` 0.11.0 y SQLAlchemy 2.1.9) dejan pasar el error.
+
+Solución: reinstalar ambos paquetes **sin extensiones compiladas**, dentro del entorno virtual:
+```powershell
+$env:WHENEVER_NO_BUILD_RUST_EXT = "1"
+pip install --force-reinstall --no-deps --no-binary whenever whenever
+$env:DISABLE_SQLALCHEMY_CEXT = "1"
+pip install --force-reinstall --no-deps --no-binary sqlalchemy sqlalchemy
+```
+Se comprueba con:
+```powershell
+python -c "import whenever; print(whenever._EXTENSION_LOADED)"   # False = Python puro
+python -c "from sqlalchemy.util._has_cython import HAS_CYEXTENSION; print(HAS_CYEXTENSION)"   # False
+```
+**Qué se verificó:** con copias de ambos paquetes sin archivos `.pyd`, el resultado es el mismo que tras esa reinstalación. Con ellas, Prefect 3.9.5 ejecutó el escenario `temporal` (3 intentos, `COMPLETED`); ver `evidencias/11_windows_sin_extensiones.txt`. En el equipo de prueba **no** hubo bloqueo, así que no se reprodujo el error original ni se ejecutaron los comandos `pip` anteriores. Las variables y opciones provienen de la documentación oficial ([whenever, FAQ](https://whenever.readthedocs.io/en/latest/faq.html); [SQLAlchemy, instalación](https://docs.sqlalchemy.org/en/21/intro.html)). La versión pura es algo más lenta, pero esa diferencia no afecta a estas demostraciones. Alternativas: excluir la carpeta del entorno virtual de esa directiva (si la administración del equipo lo permite) o usar WSL.
 
 ## Comparativa
 | | Cron sin reintentos | Cron con reintentos | Prefect |

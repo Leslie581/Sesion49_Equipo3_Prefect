@@ -41,6 +41,37 @@ def extraer_comentarios(publicaciones, max_comentarios: int) -> list[dict]:
     return filas
 
 
+def faltan_credenciales() -> list[str]:
+    return [v for v in VARIABLES if not os.environ.get(v)]
+
+
+def crear_cliente():
+    """Cliente PRAW de solo lectura con las credenciales del entorno."""
+    import praw
+
+    reddit = praw.Reddit(client_id=os.environ["REDDIT_CLIENT_ID"],
+                         client_secret=os.environ["REDDIT_CLIENT_SECRET"],
+                         user_agent=os.environ["REDDIT_USER_AGENT"])
+    reddit.read_only = True
+    return reddit
+
+
+def obtener_publicaciones(reddit, post: str | None, subreddit: str | None, cantidad: int):
+    if post:
+        return [reddit.submission(url=post)]
+    return reddit.subreddit(subreddit).hot(limit=cantidad)
+
+
+def errores_de_red() -> tuple:
+    """Errores transitorios que vale la pena reintentar."""
+    try:
+        import prawcore
+    except ImportError:
+        return (ConnectionError, TimeoutError)
+    return (ConnectionError, TimeoutError,
+            prawcore.exceptions.RequestException, prawcore.exceptions.ServerError)
+
+
 def guardar_csv(filas: list[dict], destino: Path) -> None:
     destino.parent.mkdir(parents=True, exist_ok=True)
     temporal = destino.with_suffix(".tmp")
@@ -61,28 +92,20 @@ def main() -> int:
     p.add_argument("--salida", type=Path)
     a = p.parse_args()
 
-    faltantes = [v for v in VARIABLES if not os.environ.get(v)]
+    faltantes = faltan_credenciales()
     if faltantes:
         print(f"ERROR: faltan variables de entorno: {', '.join(faltantes)}", file=sys.stderr)
         return 2
     try:
-        import praw
         import prawcore
     except ImportError:
         print("ERROR: instale PRAW con: pip install -r reddit_demo/requirements.txt", file=sys.stderr)
         return 2
 
-    reddit = praw.Reddit(client_id=os.environ["REDDIT_CLIENT_ID"],
-                         client_secret=os.environ["REDDIT_CLIENT_SECRET"],
-                         user_agent=os.environ["REDDIT_USER_AGENT"])
-    reddit.read_only = True
     try:
-        if a.post:
-            publicaciones = [reddit.submission(url=a.post)]
-        else:
-            publicaciones = reddit.subreddit(a.subreddit).hot(limit=a.publicaciones)
+        publicaciones = obtener_publicaciones(crear_cliente(), a.post, a.subreddit, a.publicaciones)
         filas = extraer_comentarios(publicaciones, a.max_comentarios)
-    except (prawcore.exceptions.RequestException, prawcore.exceptions.ServerError) as e:
+    except errores_de_red() as e:
         print(f"ERROR de red (reintentable): {e}", file=sys.stderr)
         return EX_TEMPFAIL
     except prawcore.exceptions.PrawcoreException as e:  # credenciales, permisos, no encontrado

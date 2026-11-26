@@ -1,0 +1,225 @@
+Windows 11, Python 3.12.10, Prefect 3.9.5. PRUEBAS SIMULADAS: cliente falso, sin PRAW, credenciales ni internet.
+$ python -W ignore -m unittest tests.test_reddit tests.test_reddit_prefect -v
+test_aplanado_y_csv (tests.test_reddit.Reddit.test_aplanado_y_csv) ... ok
+test_sin_credenciales_sale_con_2 (tests.test_reddit.Reddit.test_sin_credenciales_sale_con_2) ... ok
+18:01:54.274 | INFO    | prefect - Starting temporary server on http://127.0.0.1:56423
+See https://www.prefect.io/docs/v3/concepts/server#how-to-guides for more information on running a dedicated Prefect server.
+test_error_de_red_permanente_cuatro_intentos (tests.test_reddit_prefect.FlujoReddit.test_error_de_red_permanente_cuatro_intentos) ... 18:02:29.337 | INFO    | Flow run 'beige-groundhog' - Beginning flow run 'beige-groundhog' for flow 'extraccion-reddit'
+18:02:29.353 | INFO    | Flow run 'beige-groundhog' - View at http://127.0.0.1:56423/runs/flow-run/5902e02b-1a5c-4f4d-8c83-6e24dd501f89
+18:02:30.156 | INFO    | Task run 'extraer_reddit-5b7' - Extraer Reddit: intento 1
+18:02:30.164 | INFO    | Task run 'extraer_reddit-5b7' - Task run failed with exception: ConnectionError('simulado') - Retry 1/3 will start 2 second(s) from now
+18:02:32.171 | INFO    | Task run 'extraer_reddit-5b7' - Extraer Reddit: intento 2
+18:02:32.185 | INFO    | Task run 'extraer_reddit-5b7' - Task run failed with exception: ConnectionError('simulado') - Retry 2/3 will start 2 second(s) from now
+18:02:34.196 | INFO    | Task run 'extraer_reddit-5b7' - Extraer Reddit: intento 3
+18:02:34.202 | INFO    | Task run 'extraer_reddit-5b7' - Task run failed with exception: ConnectionError('simulado') - Retry 3/3 will start 2 second(s) from now
+18:02:36.211 | INFO    | Task run 'extraer_reddit-5b7' - Extraer Reddit: intento 4
+18:02:36.212 | ERROR   | Task run 'extraer_reddit-5b7' - Task run failed with exception: ConnectionError('simulado') - Retries are exhausted
+Traceback (most recent call last):
+  File "<ruta>/site-packages\prefect\task_engine.py", line 1072, in run_context
+    yield self
+  File "<ruta>/site-packages\prefect\task_engine.py", line 1777, in run_task_sync
+    engine.call_task_fn(txn)
+  File "<ruta>/site-packages\prefect\task_engine.py", line 1093, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\utilities\callables\__init__.py", line 404, in call_with_parameters
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "<proyecto>\reddit_demo\flujo_reddit_prefect.py", line 39, in extraer_reddit
+    origen = er.obtener_publicaciones(er.crear_cliente(), post, subreddit, publicaciones)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/Python312\Lib\unittest\mock.py", line 1139, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/Python312\Lib\unittest\mock.py", line 1143, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/Python312\Lib\unittest\mock.py", line 1204, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "<proyecto>\tests\test_reddit_prefect.py", line 43, in publicaciones
+    raise error("simulado")
+ConnectionError: simulado
+18:02:36.283 | ERROR   | Task run 'extraer_reddit-5b7' - Finished in state Failed('Task run encountered an exception ConnectionError: simulado')
+18:02:36.286 | ERROR   | Flow run 'beige-groundhog' - Encountered exception during execution: ConnectionError('simulado')
+Traceback (most recent call last):
+  File "<ruta>/site-packages\prefect\flow_engine.py", line 1449, in run_context
+    yield self
+  File "<ruta>/site-packages\prefect\flow_engine.py", line 2337, in run_flow_sync
+    engine.call_flow_fn()
+  File "<ruta>/site-packages\prefect\flow_engine.py", line 1471, in call_flow_fn
+    result = call_with_parameters(self.flow.fn, self.parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\utilities\callables\__init__.py", line 404, in call_with_parameters
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "<proyecto>\reddit_demo\flujo_reddit_prefect.py", line 55, in flujo_reddit
+    filas = extraer_reddit(post, subreddit, publicaciones, max_comentarios)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\tasks.py", line 1240, in __call__
+    return run_task(
+           ^^^^^^^^^
+  File "<ruta>/site-packages\prefect\task_engine.py", line 2046, in run_task
+    return run_task_sync(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\task_engine.py", line 1780, in run_task_sync
+    return engine.state if return_type == "state" else engine.result()
+                                                       ^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\task_engine.py", line 636, in result
+    raise self._raised
+  File "<ruta>/site-packages\prefect\task_engine.py", line 1072, in run_context
+    yield self
+  File "<ruta>/site-packages\prefect\task_engine.py", line 1777, in run_task_sync
+    engine.call_task_fn(txn)
+  File "<ruta>/site-packages\prefect\task_engine.py", line 1093, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\utilities\callables\__init__.py", line 404, in call_with_parameters
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "<proyecto>\reddit_demo\flujo_reddit_prefect.py", line 39, in extraer_reddit
+    origen = er.obtener_publicaciones(er.crear_cliente(), post, subreddit, publicaciones)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/Python312\Lib\unittest\mock.py", line 1139, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/Python312\Lib\unittest\mock.py", line 1143, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/Python312\Lib\unittest\mock.py", line 1204, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "<proyecto>\tests\test_reddit_prefect.py", line 43, in publicaciones
+    raise error("simulado")
+ConnectionError: simulado
+18:02:36.378 | INFO    | Flow run 'beige-groundhog' - Finished in state Failed('Flow run encountered an exception: ConnectionError: simulado')
+ok
+test_error_de_red_temporal_se_recupera (tests.test_reddit_prefect.FlujoReddit.test_error_de_red_temporal_se_recupera) ... 18:02:37.157 | INFO    | Flow run 'gray-rattlesnake' - Beginning flow run 'gray-rattlesnake' for flow 'extraccion-reddit'
+18:02:37.158 | INFO    | Flow run 'gray-rattlesnake' - View at http://127.0.0.1:56423/runs/flow-run/17057cc3-9269-4dcb-91ed-6d1089057c7b
+18:02:37.168 | INFO    | Task run 'extraer_reddit-280' - Extraer Reddit: intento 1
+18:02:37.175 | INFO    | Task run 'extraer_reddit-280' - Task run failed with exception: ConnectionError('simulado') - Retry 1/3 will start 2 second(s) from now
+18:02:39.183 | INFO    | Task run 'extraer_reddit-280' - Extraer Reddit: intento 2
+18:02:39.192 | INFO    | Task run 'extraer_reddit-280' - Task run failed with exception: ConnectionError('simulado') - Retry 2/3 will start 2 second(s) from now
+18:02:41.198 | INFO    | Task run 'extraer_reddit-280' - Extraer Reddit: intento 3
+18:02:41.200 | INFO    | Task run 'extraer_reddit-280' - Extraer Reddit: 1 comentarios
+18:02:41.207 | INFO    | Task run 'extraer_reddit-280' - Finished in state Completed()
+18:02:41.224 | INFO    | Task run 'guardar_reddit-0e8' - Guardar: 1 comentarios en r.csv
+18:02:41.231 | INFO    | Task run 'guardar_reddit-0e8' - Finished in state Completed()
+18:02:41.370 | INFO    | Flow run 'gray-rattlesnake' - Finished in state Completed()
+ok
+test_error_no_transitorio_no_se_reintenta (tests.test_reddit_prefect.FlujoReddit.test_error_no_transitorio_no_se_reintenta) ... 18:02:42.163 | INFO    | Flow run 'gray-meerkat' - Beginning flow run 'gray-meerkat' for flow 'extraccion-reddit'
+18:02:42.165 | INFO    | Flow run 'gray-meerkat' - View at http://127.0.0.1:56423/runs/flow-run/5828cc15-3574-4377-9c06-f54a5aac3e18
+18:02:42.176 | INFO    | Task run 'extraer_reddit-13b' - Extraer Reddit: intento 1
+18:02:42.185 | ERROR   | Task run 'extraer_reddit-13b' - Finished in state Failed('Task run encountered an exception PermissionError: simulado')
+18:02:42.190 | ERROR   | Flow run 'gray-meerkat' - Encountered exception during execution: PermissionError('simulado')
+Traceback (most recent call last):
+  File "<ruta>/site-packages\prefect\flow_engine.py", line 1449, in run_context
+    yield self
+  File "<ruta>/site-packages\prefect\flow_engine.py", line 2337, in run_flow_sync
+    engine.call_flow_fn()
+  File "<ruta>/site-packages\prefect\flow_engine.py", line 1471, in call_flow_fn
+    result = call_with_parameters(self.flow.fn, self.parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\utilities\callables\__init__.py", line 404, in call_with_parameters
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "<proyecto>\reddit_demo\flujo_reddit_prefect.py", line 55, in flujo_reddit
+    filas = extraer_reddit(post, subreddit, publicaciones, max_comentarios)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\tasks.py", line 1240, in __call__
+    return run_task(
+           ^^^^^^^^^
+  File "<ruta>/site-packages\prefect\task_engine.py", line 2046, in run_task
+    return run_task_sync(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\task_engine.py", line 1780, in run_task_sync
+    return engine.state if return_type == "state" else engine.result()
+                                                       ^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\task_engine.py", line 636, in result
+    raise self._raised
+  File "<proyecto>\reddit_demo\flujo_reddit_prefect.py", line 27, in es_error_de_red
+    estado.result()
+  File "<ruta>/site-packages\prefect\_internal\compatibility\async_dispatch.py", line 94, in wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\client\schemas\objects.py", line 394, in result
+    return run_coro_as_sync(
+           ^^^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\utilities\asyncutils\__init__.py", line 207, in run_coro_as_sync
+    return call.result()
+           ^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\_internal\concurrency\calls.py", line 365, in result
+    return self.future.result(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\_internal\concurrency\calls.py", line 183, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "<ruta>/site-packages\prefect\_internal\concurrency\calls.py", line 441, in _run_async
+    result = await coro
+             ^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\utilities\asyncutils\__init__.py", line 188, in coroutine_wrapper
+    return await task
+           ^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\states.py", line 89, in get_state_result
+    return await _get_state_result(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\states.py", line 161, in _get_state_result
+    raise await aget_state_exception(state)
+  File "<ruta>/site-packages\prefect\task_engine.py", line 1072, in run_context
+    yield self
+  File "<ruta>/site-packages\prefect\task_engine.py", line 1777, in run_task_sync
+    engine.call_task_fn(txn)
+  File "<ruta>/site-packages\prefect\task_engine.py", line 1093, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/site-packages\prefect\utilities\callables\__init__.py", line 404, in call_with_parameters
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "<proyecto>\reddit_demo\flujo_reddit_prefect.py", line 39, in extraer_reddit
+    origen = er.obtener_publicaciones(er.crear_cliente(), post, subreddit, publicaciones)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/Python312\Lib\unittest\mock.py", line 1139, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/Python312\Lib\unittest\mock.py", line 1143, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/Python312\Lib\unittest\mock.py", line 1204, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "<proyecto>\tests\test_reddit_prefect.py", line 43, in publicaciones
+    raise error("simulado")
+PermissionError: simulado
+18:02:42.328 | INFO    | Flow run 'gray-meerkat' - Finished in state Failed('Flow run encountered an exception: PermissionError: simulado')
+ok
+test_exito (tests.test_reddit_prefect.FlujoReddit.test_exito) ... 18:02:43.080 | INFO    | Flow run 'caped-chowchow' - Beginning flow run 'caped-chowchow' for flow 'extraccion-reddit'
+18:02:43.081 | INFO    | Flow run 'caped-chowchow' - View at http://127.0.0.1:56423/runs/flow-run/5abc43dd-fd54-4992-9000-aaf06a61b091
+18:02:43.094 | INFO    | Task run 'extraer_reddit-e01' - Extraer Reddit: intento 1
+18:02:43.096 | INFO    | Task run 'extraer_reddit-e01' - Extraer Reddit: 1 comentarios
+18:02:43.104 | INFO    | Task run 'extraer_reddit-e01' - Finished in state Completed()
+18:02:43.118 | INFO    | Task run 'guardar_reddit-694' - Guardar: 1 comentarios en r.csv
+18:02:43.126 | INFO    | Task run 'guardar_reddit-694' - Finished in state Completed()
+18:02:43.181 | INFO    | Flow run 'caped-chowchow' - Finished in state Completed()
+ok
+test_sin_credenciales_sale_con_2 (tests.test_reddit_prefect.FlujoReddit.test_sin_credenciales_sale_con_2) ... ok
+18:02:50.364 | INFO    | prefect - Stopping temporary server on http://127.0.0.1:56423
+
+----------------------------------------------------------------------
+Ran 7 tests in 56.486s
+
+OK
+Exception ignored in atexit callback: <function prefect_test_harness.<locals>.cleanup_temp_dir at 0x000001C5C9CB20C0>
+Traceback (most recent call last):
+  File "<ruta>/site-packages\prefect\testing\utilities.py", line 150, in cleanup_temp_dir
+    shutil.rmtree(temp_dir)
+  File "<ruta>/Python312\Lib\shutil.py", line 781, in rmtree
+    return _rmtree_unsafe(path, onexc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<ruta>/Python312\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.unlink, fullname, err)
+  File "<ruta>/Python312\Lib\shutil.py", line 633, in _rmtree_unsafe
+    os.unlink(fullname)
+PermissionError: [WinError 32] El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso: '<ruta>/Temp\\tmpuvsdcvmq\\prefect-test.db'
+[código de salida: 0]

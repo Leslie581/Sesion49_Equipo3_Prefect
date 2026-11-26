@@ -1,0 +1,34 @@
+Windows 11, Python 3.12.10. Copias de whenever y SQLAlchemy SIN archivos .pyd (equivale a instalarlas en Python puro).
+No reproduce el bloqueo del sistema; comprueba que Prefect funciona sin las extensiones compiladas.
+
+$ python chk.py   # venv normal
+whenever 0.11.0 extension Rust: True
+sqlalchemy 2.1.9 extensiones Cython: True
+origen: venv
+
+$ PYTHONPATH=<copias sin .pyd> python chk.py
+whenever 0.11.0 extension Rust: False
+sqlalchemy 2.1.9 extensiones Cython: False
+origen: copia sin .pyd
+
+$ PYTHONPATH=<copias sin .pyd> python demo_prefect_escenarios.py temporal
+17:59:54.646 | INFO    | prefect - Starting temporary server on http://127.0.0.1:8765
+See https://www.prefect.io/docs/v3/concepts/server#how-to-guides for more information on running a dedicated Prefect server.
+18:00:12.695 | INFO    | Flow run 'skilled-quoll' - Beginning flow run 'skilled-quoll' for flow 'pipeline-etl-escenarios'
+18:00:13.413 | INFO    | Task run 'extraer-20b' - Extraer: intento 1
+18:00:13.415 | INFO    | Task run 'extraer-20b' - Task run failed with exception: ConnectionError('Desconexión simulada (intento 1)') - Retry 1/3 will start 2 second(s) from now
+18:00:15.425 | INFO    | Task run 'extraer-20b' - Extraer: intento 2
+18:00:15.426 | INFO    | Task run 'extraer-20b' - Task run failed with exception: ConnectionError('Desconexión simulada (intento 2)') - Retry 2/3 will start 2 second(s) from now
+18:00:17.441 | INFO    | Task run 'extraer-20b' - Extraer: intento 3
+18:00:17.443 | INFO    | Task run 'extraer-20b' - Extraer: éxito en el intento 3 -> [10, 20, 30]
+18:00:17.454 | INFO    | Task run 'extraer-20b' - Finished in state Completed()
+18:00:17.474 | INFO    | Task run 'transformar-2af' - Transformar: [10, 20, 30] -> [20, 40, 60]
+18:00:17.486 | INFO    | Task run 'transformar-2af' - Finished in state Completed()
+18:00:17.510 | INFO    | Task run 'guardar-c90' - Guardar: 3 registros guardados (total = 120)
+18:00:17.523 | INFO    | Task run 'guardar-c90' - Finished in state Completed()
+18:00:17.552 | INFO    | Task run 'exportar_csv-1c2' - CSV: prefect_temporal_704c9520-7cfa-4c2b-8757-31a003d7cf84.csv (total = 120)
+18:00:17.564 | INFO    | Task run 'exportar_csv-1c2' - Finished in state Completed()
+18:00:17.666 | INFO    | Flow run 'skilled-quoll' - Finished in state Completed()
+Estado final: COMPLETED
+18:00:17.704 | INFO    | prefect - Stopping temporary server on http://127.0.0.1:8765
+[código de salida: 0]

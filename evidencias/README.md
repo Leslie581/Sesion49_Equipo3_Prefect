@@ -15,11 +15,14 @@ Salidas reales del 25 de noviembre de 2026. Solo se sustituyeron rutas y usuario
 | `07_prefect_recurrente.txt` | Programación cada 60 s durante 150 s |
 | `08_pruebas_linux.txt` | 15 pruebas: 15 aprobadas |
 | `09_pruebas_windows.txt` | 15 pruebas: 8 aprobadas y 7 omitidas (requieren Bash de Linux) |
+| `10_reddit_simulado_windows.txt` | Reddit con cliente **simulado**: 7/7 aprobadas (no es una extracción real) |
+| `11_windows_sin_extensiones.txt` | Prefect con `whenever` y SQLAlchemy sin `.pyd` |
 
 Los 01 a 08 se regeneran con `PY=<venv>/bin/python bash tests/generar_evidencias.sh`.
 
 ## Observaciones
 
+- No hay evidencias de extracción real de Reddit: requiere credenciales personales.
 - No se instaló ninguna tarea en crontab ni se esperó una medianoche real. Se validó la sintaxis
   con `crontab -n` y se ejecutó la línea C con un entorno mínimo similar al de Cron.
 - En una ejecución previa en WSL, `demo_prefect.py` falló una vez porque el servidor temporal de

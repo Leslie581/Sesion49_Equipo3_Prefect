@@ -51,7 +51,8 @@ El proyecto compara dos formas de automatizar un mismo ETL: **Prefect** y **Cron
 ```
 - `Equipo3_Orquestacion_Prefect.pptx` / `.pdf`: presentación.
 - `Equipo_3_Actividades_Prefect.docx`: actividades.
-- `Guion_Exposicion.md`: guion de la exposición.
+- `Guion_Exposicion.md`: guion de la exposición (8 integrantes, 5 min), ligado al caso Open-Meteo.
+- `docs/GUIA_DEMO_EN_VIVO.md`: guía de la demostración en vivo (escenario temporal, ventanas, comandos y resultados esperados).
 
 ## Requisitos
 - Python 3.11 o superior, menor que 3.16 (lo exige Prefect 3.9.5, la versión probada)
